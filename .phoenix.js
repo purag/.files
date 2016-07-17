@@ -3,6 +3,8 @@ var a = App;
 var s = Screen;
 var k = Key;
 
+var INCREMENT = 40;
+
 bind
   // maximize
   ("up", ["cmd", "shift"], function () {
@@ -76,9 +78,42 @@ bind
     if (!curw()) return;
     curw().setFrame({
       x: screenWidth() / 2,
-      y: screenHeight() / 2,
-      width: screenWidth() / 2 + 24,
+      y: screenHeight() / 2 + 24,
+      width: screenWidth() / 2,
       height: screenHeight() / 2
+    });
+  })
+
+  // center
+  ("return", ["cmd", "shift"], function () {
+    if (!curw()) return;
+    curw().setFrame({
+      x: screenWidth() / 8,
+      y: screenHeight() / 8,
+      width: 3 * (screenWidth() / 4),
+      height: 3 * (screenHeight() / 4)
+    });
+  })
+
+  // increase size
+  ("]", ["cmd", "shift"], function () {
+    if (!curw()) return;
+    curw().setFrame({
+      x: curw().frame().x - (INCREMENT / 2),
+      y: curw().frame().y - (INCREMENT / 2),
+      width: curw().frame().width + INCREMENT,
+      height: curw().frame().height + INCREMENT
+    });
+  })
+
+  // decrease size
+  ("[", ["cmd", "shift"], function () {
+    if (!curw()) return;
+    curw().setFrame({
+      x: curw().frame().x + (INCREMENT / 2),
+      y: curw().frame().y + (INCREMENT / 2),
+      width: curw().frame().width - INCREMENT,
+      height: curw().frame().height - INCREMENT
     });
   })
 // BIND
@@ -99,4 +134,11 @@ function screenHeight () {
 function bind (key, modifiers, cb) {
   k.on(key, modifiers, cb);
   return bind;
+}
+
+function alert (msg) {
+  var modal = new Modal();
+  modal.message = msg;
+  modal.duration = 2;
+  modal.show();
 }
