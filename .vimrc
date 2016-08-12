@@ -10,18 +10,7 @@ set nocompatible
 " | plugins |
 " +---------+
 
-" filetype off                " required
-"
-" " set the runtime path to include Vundle and initialize
-" set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
-"
-" " let Vundle manage Vundle, required
-" Plugin 'VundleVim/Vundle.vim'
-" Plugin 'Valloric/YouCompleteMe'
-"
-" call vundle#end()            " required
-" filetype plugin indent on    " required
+
 
 " +-------------+
 " | indentation |
@@ -45,6 +34,10 @@ autocmd FileType asm set softtabstop=8
 " 8-space indents in c++ files
 autocmd FileType cpp set sw=8
 autocmd FileType cpp set softtabstop=8
+
+" 4-space indents in java files
+autocmd FileType java set sw=4
+autocmd FileType java set softtabstop=8
 
 " +--------------+
 " | visual aides |
