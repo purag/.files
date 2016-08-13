@@ -8,35 +8,18 @@ var s = Screen;
 var k = Key;
 
 var INCREMENT = 10;
-var MOTION_INCREMENT = 100;
 var PADDING = 10;
 var MOD = ["shift", "cmd"];
 var ALTMOD = ["alt", "shift"];
 
-s.prototype.width = function () {
-  return this.flippedVisibleFrame().width - PADDING * 2;
-};
+var HINT_APPEARANCE = "dark";
+var HINT_BUTTON = "space";
+var HINT_CANCEL = "escape";
 
-s.prototype.height = function () {
-  return this.flippedVisibleFrame().height - PADDING * 2;
-};
-
-s.prototype.hwidth = function () {
-  return (this.width() - PADDING) / 2;
-};
-
-s.prototype.hheight = function () {
-  return (this.height() - PADDING) / 2;
-};
-
-s.prototype.origin = function () {
-  return {
-    x: this.flippedVisibleFrame().x + PADDING,
-    y: this.flippedVisibleFrame().y + PADDING
-  };
-};
-
+// DIRECTIONS
 var F  = "f";
+var N  = "n";
+var S  = "s";
 var W  = "w";
 var E  = "e";
 var NW = "nw";
@@ -44,7 +27,8 @@ var NE = "ne";
 var SW = "sw";
 var SE = "se";
 
-var dirs = {
+// KEYS + DIRECTION MAPPINGS
+var snap_dirs = {
   "up":    F,
   "left":  W,
   "right": E,
@@ -54,170 +38,146 @@ var dirs = {
   "/":     SE
 };
 
-w.prototype.to = function (dir) {
-  var screen = this.screen();
-  var origin = screen.origin();
-  var x = 0, y = 0, width = screen.hwidth(), height = screen.hheight();
-
-  if ([E, NE, SE].indexOf(dir) > -1) x = screen.width() - screen.hwidth();
-  if ([SE, SW].indexOf(dir) > -1)    y = screen.height() - screen.hheight();
-  if (dir === F)                     width = screen.width();
-  if ([F, E, W].indexOf(dir) > -1)   height = screen.height();
-
-  this.setFrame({
-    x: origin.x + x,
-    y: origin.y + y,
-    width: width,
-    height: height
-  });
-
-  this.frame.x = origin.x + 500;
+var size_dirs = {
+  "h": W,
+  "j": S,
+  "k": N,
+  "l": E
 };
 
-for (var key in dirs) {
-  wbind(key, MOD, function (key) {
-    curw().to(dirs[key]);
-  }.bind(null, key));
-}
-
-// ----- HINTS -----
-var HINTMODE = false;
-var HINTS = {};
-var ESCBIND = null;
-
-function cancelHints () {
-  for (var ch in HINTS) {
-    HINTS[ch].modal.close();
-    unbind(HINTS[ch].binding);
-  };
-  unbind(ESCBIND);
-  HINTS = {};
-  HINTMODE = false;
-}
-
-bind
-  ("space", MOD, function () {
-    if (HINTMODE) {
-      cancelHints();
-    } else {
-      var windows = w.all({
-        visible: true
-      });
-      var ch = "A";
-      windows.forEach(function (win) {
-        var x = win.frame().x + win.frame().width / 2 - 30;
-        var y = win.screen().frame().height - win.frame().y - win.frame().height / 2 - 30;
-        HINTS[ch] = {
-          binding: bind(ch, [], function () {
-            win.focus();
-            cancelHints();
-          }),
-          modal: modal(ch, x, y, win.app().icon())
-        };
-        ch = String.fromCharCode(ch.charCodeAt(0) + 1);
-      });
-      ESCBIND = bind("escape", [], cancelHints);
-      HINTMODE = true;
-    }
-  });
-// ----- HINTS -----
-
-wbind
-  ("h", MOD, function () {
-    curw().setFrame({
-      x: curw().frame().x - INCREMENT,
-      y: curw().frame().y,
-      width: curw().frame().width + INCREMENT,
-      height: curw().frame().height
-    });
-  })
-
-  ("l", ALTMOD, function () {
-    curw().setFrame({
-      x: curw().frame().x + INCREMENT,
-      y: curw().frame().y,
-      width: curw().frame().width - INCREMENT,
-      height: curw().frame().height
-    });
-  })
-
-  ("j", MOD, function () {
-    curw().setFrame({
-      x: curw().frame().x,
-      y: curw().frame().y,
-      width: curw().frame().width,
-      height: curw().frame().height + INCREMENT
-    });
-  })
-
-  ("k", ALTMOD, function () {
-    curw().setFrame({
-      x: curw().frame().x,
-      y: curw().frame().y,
-      width: curw().frame().width,
-      height: curw().frame().height - INCREMENT
-    });
-  })
-  
-  ("k", MOD, function () {
-    curw().setFrame({
-      x: curw().frame().x,
-      y: curw().frame().y - INCREMENT,
-      width: curw().frame().width,
-      height: curw().frame().height + INCREMENT
-    });
-  })
-
-  ("j", ALTMOD, function () {
-    curw().setFrame({
-      x: curw().frame().x,
-      y: curw().frame().y + INCREMENT,
-      width: curw().frame().width,
-      height: curw().frame().height - INCREMENT
-    });
-  })
-
-  ("l", MOD, function () {
-    curw().setFrame({
-      x: curw().frame().x,
-      y: curw().frame().y,
-      width: curw().frame().width + INCREMENT,
-      height: curw().frame().height
-    });
-  })
-
-  ("h", ALTMOD, function () {
-    curw().setFrame({
-      x: curw().frame().x,
-      y: curw().frame().y,
-      width: curw().frame().width - INCREMENT,
-      height: curw().frame().height
-    });
-  });
-// WBIND
-
+// +---------+
+// | HELPERS |
+// +---------+
 function curw () {
   return w.focused();
 }
 
-function bind (key, modifiers, cb) {
-  return k.on(key, modifiers, cb);
-}
-
-function unbind (key) {
-  return k.off(key);
-}
-
-// chainable key binding function for when window is in focus
-function wbind (key, modifiers, cb) {
+// Conditional key binding -- execute cb only if cond_f returns truthy
+function onif (cond_f, key, modifiers, cb) {
   k.on(key, modifiers, function () {
-    if (!curw()) return;
+    if (!cond_f()) return;
     cb();
   });
-  return wbind;
+};
+
+// Screen prototype extension -- subtract padding
+s.prototype.width = function () {
+  return this.flippedVisibleFrame().width - PADDING * 2;
+};
+
+s.prototype.height = function () {
+  return this.flippedVisibleFrame().height - PADDING * 2;
+};
+
+s.prototype.origin = function () {
+  return {
+    x: this.flippedVisibleFrame().x + PADDING,
+    y: this.flippedVisibleFrame().y + PADDING
+  };
+};
+
+function opposite (dir) {
+  switch (dir) {
+    case N: return S;
+    case S: return N;
+    case E: return W;
+    case W: return E;
+    case NW: return SE;
+    case NE: return SW;
+    case SW: return NE;
+    case SE: return NW;
+  }
 }
 
-function modal (msg, x, y, icon) {
+// Snap a window in a given direction
+w.prototype.to = function (dir) {
+  var screen = this.screen();
+  var frame = {};
+  frame.x = screen.origin().x;
+  frame.y = screen.origin().y;
+  frame.width = (screen.width() - PADDING) / 2;
+  frame.height = (screen.height() - PADDING) / 2;
+
+  if ([E, NE, SE].indexOf(dir) > -1) frame.x += screen.width() - frame.width;
+  if ([SE, SW].indexOf(dir) > -1)    frame.y += screen.height() - frame.height;
+  if (dir === F)                     frame.width = screen.width();
+  if ([F, E, W].indexOf(dir) > -1)   frame.height = screen.height();
+
+  this.setFrame(frame);
+};
+
+// Resize a window by coeff units in the given direction
+// coeff: -1 shrinks, 1 grows.
+w.prototype.resize = function (dir, coeff) {
+  var frame = this.frame();
+
+  if (dir === W)                frame.x += coeff * -INCREMENT;
+  if (dir === N)                frame.y += coeff * -INCREMENT;
+  if ([E, W].indexOf(dir) > -1) frame.width += coeff * INCREMENT;
+  if ([N, S].indexOf(dir) > -1) frame.height += coeff * INCREMENT;
+
+  this.setFrame(frame);
+};
+
+// Snap bindings
+for (var key in snap_dirs) {
+  onif(curw, key, MOD, function (dir) {
+    curw().to(dir);
+  }.bind(null, snap_dirs[key]));
+}
+
+// Resize bindings
+for (var key in size_dirs) {
+  onif(curw, key, MOD, function (dir) {
+    curw().resize(dir, 1);
+  }.bind(null, size_dirs[key]));
+
+  onif(curw, key, ALTMOD, function (dir) {
+    curw().resize(dir, -1);
+  }.bind(null, opposite(size_dirs[key])));
+}
+
+// Hints
+var hintsActive = false;
+var hints = {};
+var escbind = null;
+
+function cancelHints () {
+  for (var ch in hints) {
+    hints[ch].hint.close();
+    k.off(hints[ch].binding);
+  };
+  k.off(escbind);
+  hints = {};
+  hintsActive = false;
+}
+
+k.on(HINT_BUTTON, MOD, function () {
+  if (hintsActive) {
+    cancelHints();
+  } else {
+    var windows = w.all({
+      visible: true
+    });
+    var ch = "A";
+    windows.forEach(function (win) {
+      var x = win.frame().x + win.frame().width / 2 - 30;
+      var y = win.screen().frame().height - win.frame().y - win.frame().height / 2 - 30;
+      hints[ch] = {
+        binding: k.on(ch, [], function () {
+          win.focus();
+          cancelHints();
+        }),
+        hint: hint(ch, x, y, win.app().icon())
+      };
+      ch = String.fromCharCode(ch.charCodeAt(0) + 1);
+    });
+    escbind = k.on(HINT_CANCEL, [], cancelHints);
+    hintsActive = true;
+  }
+});
+
+function hint (msg, x, y, icon) {
   var modal = Modal.build({
     text: msg,
     origin: function () {
@@ -226,7 +186,7 @@ function modal (msg, x, y, icon) {
         y: y || 0
       }
     },
-    appearance: "dark",
+    appearance: HINT_APPEARANCE,
     icon: icon
   });
   modal.show();
