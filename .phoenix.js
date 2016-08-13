@@ -1,3 +1,7 @@
+Phoenix.set({
+  openAtLogin: true
+});
+
 var w = Window;
 var a = App;
 var s = Screen;
@@ -9,60 +13,72 @@ var PADDING = 10;
 var MOD = ["shift", "cmd"];
 var ALTMOD = ["alt", "shift"];
 
-var NORTH = "north";
-var SOUTH = "south";
-var EAST  = "east";
-var WEST  = "west";
-var ALL   = "all";
+s.prototype.width = function () {
+  return this.flippedVisibleFrame().width - PADDING * 2;
+};
+
+s.prototype.height = function () {
+  return this.flippedVisibleFrame().height - PADDING * 2;
+};
+
+s.prototype.hwidth = function () {
+  return (this.width() - PADDING) / 2;
+};
+
+s.prototype.hheight = function () {
+  return (this.height() - PADDING) / 2;
+};
+
+s.prototype.origin = function () {
+  return {
+    x: this.flippedVisibleFrame().x + PADDING,
+    y: this.flippedVisibleFrame().y + PADDING
+  };
+};
+
+var F  = "f";
+var W  = "w";
+var E  = "e";
+var NW = "nw";
+var NE = "ne";
+var SW = "sw";
+var SE = "se";
 
 var dirs = {
-  "up":    ALL,
-  "left":  WEST,
-  "right": EAST,
-  "'":     NORTH + EAST,
-  "a":     NORTH + WEST,
-  "/":     SOUTH + EAST,
-  "z":     SOUTH + WEST
+  "up":    F,
+  "left":  W,
+  "right": E,
+  "a":     NW,
+  "'":     NE,
+  "z":     SW,
+  "/":     SE
 };
 
-var x = function (dir) {
-  return dir == EAST || dir == NORTH + EAST || dir == SOUTH + EAST
-    ? screenHalfXOffset()
-    : 0;
-};
+w.prototype.to = function (dir) {
+  var screen = this.screen();
+  var origin = screen.origin();
+  var x = 0, y = 0, width = screen.hwidth(), height = screen.hheight();
 
-var y = function (dir) {
-  return dir == SOUTH || dir == SOUTH + EAST || dir == SOUTH + WEST
-    ? screenHalfYOffset()
-    : 0;
-};
+  if ([E, NE, SE].indexOf(dir) > -1) x = screen.width() - screen.hwidth();
+  if ([SE, SW].indexOf(dir) > -1)    y = screen.height() - screen.hheight();
+  if (dir === F)                     width = screen.width();
+  if ([F, E, W].indexOf(dir) > -1)   height = screen.height();
 
-var width = function (dir) {
-  return dir == ALL
-    ? screenWidth()
-    : screenHalfWidth();
-};
-
-var height = function (dir) {
-  return dir == EAST || dir == WEST || dir == ALL
-    ? screenHeight()
-    : screenHalfHeight();
-};
-
-var snap = function (dir) {
-  curw().setFrame({
-    x: screenOrigin().x + (dir ? x(dir) : 0),
-    y: screenOrigin().y + (dir ? y(dir) : 0),
-    width: dir ? width(dir) : screenWidth(),
-    height: dir ? height(dir) : screenHeight()
+  this.setFrame({
+    x: origin.x + x,
+    y: origin.y + y,
+    width: width,
+    height: height
   });
+
+  this.frame.x = origin.x + 500;
 };
 
-for (var dir in dirs) {
-  wbind(dir, MOD, snap.bind(null, dirs[dir]));
+for (var key in dirs) {
+  wbind(key, MOD, function (key) {
+    curw().to(dirs[key]);
+  }.bind(null, key));
 }
-
-wbind("return", MOD, snap);
 
 // ----- HINTS -----
 var HINTMODE = false;
@@ -184,38 +200,6 @@ function curw () {
   return w.focused();
 }
 
-function screenWidth () {
-  return curw().screen().flippedVisibleFrame().width - PADDING * 2;
-}
-
-function screenHeight () {
-  return curw().screen().flippedVisibleFrame().height - PADDING * 2;
-}
-
-function screenHalfWidth () {
-  return screenWidth() / 2 - PADDING / 2;
-}
-
-function screenHalfHeight () {
-  return screenHeight() / 2 - PADDING / 2;
-}
-
-function screenHalfXOffset () {
-  return screenWidth() - screenHalfWidth();
-}
-
-function screenHalfYOffset () {
-  return screenHeight() - screenHalfHeight();
-}
-
-function screenOrigin () {
-  return {
-    x: curw().screen().flippedVisibleFrame().x + PADDING,
-    y: curw().screen().flippedVisibleFrame().y + PADDING
-  };
-}
-
-// chainable key binding function
 function bind (key, modifiers, cb) {
   return k.on(key, modifiers, cb);
 }
@@ -248,3 +232,5 @@ function modal (msg, x, y, icon) {
   modal.show();
   return modal;
 }
+
+Phoenix.notify("Configuration loaded.");
