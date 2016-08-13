@@ -3,18 +3,18 @@ Phoenix.set({
 });
 
 var w = Window;
-var a = App;
 var s = Screen;
 var k = Key;
 
-var INCREMENT = 10;
+var INCREMENT = 50;
 var PADDING = 10;
 var MOD = ["shift", "cmd"];
 var ALTMOD = ["alt", "shift"];
 
-var HINT_APPEARANCE = "dark";
+var HINT_APPEARANCE = "light";
 var HINT_BUTTON = "space";
 var HINT_CANCEL = "escape";
+var HINT_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
 // DIRECTIONS
 var F  = "f";
@@ -107,14 +107,14 @@ w.prototype.to = function (dir) {
 };
 
 // Resize a window by coeff units in the given direction
-// coeff: -1 shrinks, 1 grows.
+// coeff: -n shrinks by pixels units, +n grows by n pixels.
 w.prototype.resize = function (dir, coeff) {
   var frame = this.frame();
 
-  if (dir === W)                frame.x += coeff * -INCREMENT;
-  if (dir === N)                frame.y += coeff * -INCREMENT;
-  if ([E, W].indexOf(dir) > -1) frame.width += coeff * INCREMENT;
-  if ([N, S].indexOf(dir) > -1) frame.height += coeff * INCREMENT;
+  if (dir === W)                frame.x += coeff * -1;
+  if (dir === N)                frame.y += coeff * -1;
+  if ([E, W].indexOf(dir) > -1) frame.width += coeff * 1;
+  if ([N, S].indexOf(dir) > -1) frame.height += coeff * 1;
 
   this.setFrame(frame);
 };
@@ -129,11 +129,11 @@ for (var key in snap_dirs) {
 // Resize bindings
 for (var key in size_dirs) {
   onif(curw, key, MOD, function (dir) {
-    curw().resize(dir, 1);
+    curw().resize(dir, INCREMENT);
   }.bind(null, size_dirs[key]));
 
   onif(curw, key, ALTMOD, function (dir) {
-    curw().resize(dir, -1);
+    curw().resize(dir, -INCREMENT);
   }.bind(null, opposite(size_dirs[key])));
 }
 
@@ -159,18 +159,18 @@ k.on(HINT_BUTTON, MOD, function () {
     var windows = w.all({
       visible: true
     });
-    var ch = "A";
+    var i = 0;
     windows.forEach(function (win) {
       var x = win.frame().x + win.frame().width / 2 - 30;
       var y = win.screen().frame().height - win.frame().y - win.frame().height / 2 - 30;
-      hints[ch] = {
-        binding: k.on(ch, [], function () {
+      hints[HINT_CHARS[i]] = {
+        binding: k.on(HINT_CHARS[i], [], function () {
           win.focus();
           cancelHints();
         }),
-        hint: hint(ch, x, y, win.app().icon())
+        hint: hint(HINT_CHARS[i], x, y, win.app().icon())
       };
-      ch = String.fromCharCode(ch.charCodeAt(0) + 1);
+      i++;
     });
     escbind = k.on(HINT_CANCEL, [], cancelHints);
     hintsActive = true;
