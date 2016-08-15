@@ -11,17 +11,17 @@ var PADDING = 10;
 var MOD = ["shift", "cmd"];
 var ALTMOD = ["alt", "shift"];
 
-var HINT_APPEARANCE = "light";
+var HINT_APPEARANCE = "dark";
 var HINT_BUTTON = "space";
 var HINT_CANCEL = "escape";
 var HINT_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
 // DIRECTIONS
-var F  = "f";
-var N  = "n";
-var S  = "s";
-var W  = "w";
-var E  = "e";
+var F  = "fill";
+var N  = "north";
+var S  = "south";
+var W  = "west";
+var E  = "east";
 var NW = "nw";
 var NE = "ne";
 var SW = "sw";
@@ -43,6 +43,11 @@ var size_dirs = {
   "j": S,
   "k": N,
   "l": E
+};
+
+var space_dirs = {
+  ",": W,
+  ".": E
 };
 
 // +---------+
@@ -113,10 +118,20 @@ w.prototype.resize = function (dir, coeff) {
 
   if (dir === W)                frame.x += coeff * -1;
   if (dir === N)                frame.y += coeff * -1;
-  if ([E, W].indexOf(dir) > -1) frame.width += coeff * 1;
-  if ([N, S].indexOf(dir) > -1) frame.height += coeff * 1;
+  if ([E, W].indexOf(dir) > -1) frame.width += coeff;
+  if ([N, S].indexOf(dir) > -1) frame.height += coeff;
 
   this.setFrame(frame);
+};
+
+w.prototype.toSpace = function (dir) {
+  var curSpace = this.spaces()[0];
+  var newSpace = curSpace.next();
+  if (dir === W) newSpace = curSpace.previous();
+
+  curSpace.removeWindows([this]);
+  newSpace.addWindows([this]);
+  this.focus();
 };
 
 // Snap bindings
@@ -135,6 +150,12 @@ for (var key in size_dirs) {
   onif(curw, key, ALTMOD, function (dir) {
     curw().resize(dir, -INCREMENT);
   }.bind(null, opposite(size_dirs[key])));
+}
+
+for (var key in space_dirs) {
+  onif(curw, key, MOD, function (dir) {
+    curw().toSpace(dir);
+  }.bind(null, space_dirs[key]));
 }
 
 // Hints
