@@ -182,21 +182,32 @@ k.on(HINT_BUTTON, MOD, function () {
     });
     var i = 0;
     windows.forEach(function (win) {
-      var x = win.frame().x + win.frame().width / 2 - 30;
-      var y = win.screen().frame().height - win.frame().y - win.frame().height / 2 - 30;
+      var helper = win.app().windows().length > 1 ? "  |  " + win.title().substr(0, 15) : "";
+      var hint = buildhint(HINT_CHARS[i] + helper, win.app().icon());
+      hint.origin = {
+        x: win.frame().x + win.frame().width / 2 - hint.frame().width / 2,
+        y: win.screen().frame().height - win.frame().y - win.frame().height / 2 - hint.frame().height / 2
+      };
+
       for (var ch in hints) {
         var ox = hints[ch].hint.origin.x;
         var oy = hints[ch].hint.origin.y;
-        if (Math.abs(x - ox) < 100 && Math.abs(y - oy) < 60) {
-          y += 65;
+        if (Math.abs(hint.origin.x - ox) < Math.max(hints[ch].hint.frame().width, hint.frame().width)
+            && Math.abs(hint.origin.y - oy) < hint.frame().height
+        ) {
+          hint.origin = {
+            x: hint.origin.x,
+            y: hint.origin.y - 65
+          };
         }
       }
+
       hints[HINT_CHARS[i]] = {
         binding: k.on(HINT_CHARS[i], [], function () {
           win.focus();
           cancelHints();
         }),
-        hint: hint(HINT_CHARS[i], x, y, win.app().icon())
+        hint: hint
       };
       i++;
     });
@@ -205,15 +216,9 @@ k.on(HINT_BUTTON, MOD, function () {
   }
 });
 
-function hint (msg, x, y, icon) {
+function buildhint (msg, icon) {
   var modal = Modal.build({
     text: msg,
-    origin: function () {
-      return {
-        x: x || 0,
-        y: y || 0
-      }
-    },
     appearance: HINT_APPEARANCE,
     icon: icon
   });
