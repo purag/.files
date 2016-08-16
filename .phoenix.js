@@ -184,6 +184,13 @@ k.on(HINT_BUTTON, MOD, function () {
     windows.forEach(function (win) {
       var x = win.frame().x + win.frame().width / 2 - 30;
       var y = win.screen().frame().height - win.frame().y - win.frame().height / 2 - 30;
+      for (var ch in hints) {
+        var ox = hints[ch].hint.origin.x;
+        var oy = hints[ch].hint.origin.y;
+        if (Math.abs(x - ox) < 100 && Math.abs(y - oy) < 60) {
+          y += 65;
+        }
+      }
       hints[HINT_CHARS[i]] = {
         binding: k.on(HINT_CHARS[i], [], function () {
           win.focus();
