@@ -4,6 +4,7 @@ Phoenix.set({
 
 var w = Window;
 var s = Screen;
+var m = Mouse;
 var k = Key;
 
 var INCREMENT = 50;
@@ -165,7 +166,7 @@ var escbind = null;
 
 function cancelHints () {
   for (var ch in hints) {
-    hints[ch].hint.close();
+    hints[ch].modal.close();
     k.off(hints[ch].binding);
   };
   k.off(escbind);
@@ -183,17 +184,15 @@ k.on(HINT_BUTTON, MOD, function () {
     var i = 0;
     windows.forEach(function (win) {
       var helper = win.app().windows().length > 1 ? "  |  " + win.title().substr(0, 15) : "";
-      var hint = buildhint(HINT_CHARS[i] + helper, win.app().icon());
-      hint.origin = {
-        x: win.frame().x + win.frame().width / 2 - hint.frame().width / 2,
-        y: win.screen().frame().height - win.frame().y - win.frame().height / 2 - hint.frame().height / 2
-      };
+      var hint = buildhint(HINT_CHARS[i] + helper, win, win.app().icon());
 
       for (var ch in hints) {
-        var ox = hints[ch].hint.origin.x;
-        var oy = hints[ch].hint.origin.y;
-        if (Math.abs(hint.origin.x - ox) < Math.max(hints[ch].hint.frame().width, hint.frame().width)
-            && Math.abs(hint.origin.y - oy) < hint.frame().height
+        var hint2 = hints[ch].modal;
+        if (
+          hint.origin.x < hint2.origin.x + hint2.frame().width
+          && hint.origin.x + hint.frame().width > hint2.origin.x
+          && hint.origin.y < hint2.origin.y + hint2.frame().height
+          && hint.origin.y + hint.frame().width > hint2.origin.y
         ) {
           hint.origin = {
             x: hint.origin.x,
@@ -205,9 +204,13 @@ k.on(HINT_BUTTON, MOD, function () {
       hints[HINT_CHARS[i]] = {
         binding: k.on(HINT_CHARS[i], [], function () {
           win.focus();
+          m.move({
+            x: hint.origin.x,
+            y: win.screen().origin().y + win.screen().frame().height - hint.origin.y
+          });
           cancelHints();
         }),
-        hint: hint
+        modal: hint
       };
       i++;
     });
@@ -216,12 +219,37 @@ k.on(HINT_BUTTON, MOD, function () {
   }
 });
 
-function buildhint (msg, icon) {
+k.on("k", ALTMOD, function () {
+  curw().setFrame({
+    x: curw().frame().x,
+    y: curw().frame().y - 50,
+    width: curw().frame().width,
+    height: curw().frame().height
+  });
+});
+
+function buildhint (msg, win, icon) {
+  var wf = win.frame();
+  var wsf = win.screen().frame();
   var modal = Modal.build({
     text: msg,
     appearance: HINT_APPEARANCE,
-    icon: icon
+    icon: icon,
+    weight: 16
   });
+  var mf = modal.frame();
+  var x = Math.min(
+    Math.max(wf.x + wf.width / 2 - mf.width / 2, wsf.x),
+    wsf.x + wsf.width - mf.width
+  );
+  var y = Math.min(
+    Math.max(s.all(0)[0].frame().height - (wf.y + wf.height / 2 + mf.height / 2), wsf.y),
+    wsf.y + wsf.height - mf.height
+  );
+  modal.origin = {
+    x: x,
+    y: y
+  };
   modal.show();
   return modal;
 }
