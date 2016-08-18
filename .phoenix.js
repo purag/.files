@@ -205,8 +205,8 @@ k.on(HINT_BUTTON, MOD, function () {
         binding: k.on(HINT_CHARS[i], [], function () {
           win.focus();
           m.move({
-            x: hint.origin.x,
-            y: win.screen().origin().y + win.screen().frame().height - hint.origin.y
+            x: hint.origin.x + hint.frame().width / 2,
+            y: s.all()[0].frame().height - hint.origin.y - hint.frame().height / 2
           });
           cancelHints();
         }),
@@ -243,7 +243,7 @@ function buildhint (msg, win, icon) {
     wsf.x + wsf.width - mf.width
   );
   var y = Math.min(
-    Math.max(s.all(0)[0].frame().height - (wf.y + wf.height / 2 + mf.height / 2), wsf.y),
+    Math.max(s.all()[0].frame().height - (wf.y + wf.height / 2 + mf.height / 2), wsf.y),
     wsf.y + wsf.height - mf.height
   );
   modal.origin = {
