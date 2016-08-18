@@ -4,19 +4,54 @@
 " | Date: 14 Jul 2016       |
 " +-------------------------+
 
-set nocompatible
+let mapleader = "\\""
 
 " +---------+
 " | plugins |
 " +---------+
-call plug#begin("~/.vim/plugged")
+"{{{
+
+call plug#begin('~/.vim/plugged')
+
 Plug 'metakirby5/codi.vim'
+
+Plug 'junegunn/vim-peekaboo'
+
+Plug 'airblade/vim-gitgutter'
+  let g:gitgutter_map_keys = 0
+  nmap <leader>ga <Plug>GitGutterStageHunk
+  nmap <leader>gu <Plug>GitGutterUndoHunk
+  nmap <leader>gp <Plug>GitGutterPreviewHunk
+  nmap <leader>g] <Plug>GitGutterNextHunk
+  nmap <leader>g[ <Plug>GitGutterPrevHunk
+
+Plug 'Yggdroot/indentline'
+  let g:indentLine_color_term = 8
+  let g:indentLine_character = '|'
+
+Plug 'haya14busa/incsearch.vim'
+
+Plug 'osyo-manga/vim-over'
+
+Plug 'sheerun/vim-polyglot'
+
+if (version >= 704)
+  Plug 'ludovicchabant/vim-gutentags'
+endif
+
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 
+command! PI PlugInstall
+command! PU PlugUpdate | PlugUpgrade
+
+" }}}
 
 " +-------------+
 " | indentation |
 " +-------------+
+" {{{
 
 " Change tabs to spaces
 set expandtab
@@ -41,9 +76,12 @@ autocmd FileType cpp set softtabstop=8
 autocmd FileType java set sw=4
 autocmd FileType java set softtabstop=8
 
+" }}}
+
 " +--------------+
 " | visual aides |
 " +--------------+
+" {{{
 
 " Enable syntax highlighting
 syntax on
@@ -54,9 +92,12 @@ set nu
 " Set the color scheme to desert
 colors desert
 
+" }}}
+
 " +----------------+
 " | normalize keys |
 " +----------------+
+" {{{
 
 " Make backspace work right.
 set backspace=2
@@ -64,24 +105,30 @@ set backspace=2
 " auto-complete comments
 set fo+=r
 
+" }}}
+
 " +--------+
 " | search |
 " +--------+
+" {{{
 
-set ignorecase
-set smartcase
-set incsearch
-set showmatch
-set hlsearch
+  set ignorecase
+  set smartcase
+  set incsearch
+  set showmatch
+  set hlsearch
+
+" }}}
 
 " +------+
 " | misc |
 " +------+
+" {{{
 
-" Set ctags file
+" set ctags file
 set tags=~/tags
 
-" Enable mouse
+" enable mouse
 set mouse=a
 
 " scrolling settings
@@ -93,9 +140,12 @@ set noerrorbells
 set visualbell
 set t_vb=
 
+" }}}
+
 " +--------------+
 " | key mappings |
 " +--------------+
+" {{{
 
 " save and close a buffer using ctrl+x
 inoremap <c-x>   <esc>:x<cr>
@@ -130,3 +180,13 @@ noremap  <c-z>   u
 " efficiency ftw
 inoremap jj      <esc>
 nnoremap ;       :
+
+" expand a fold when we go to it
+nnoremap G       GzO
+
+" }}}
+
+" +-------------+
+" | FOLDING FTW |
+" +-------------+
+" vim: syntax=vim foldmethod=marker foldlevel=0
