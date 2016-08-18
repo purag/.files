@@ -219,15 +219,6 @@ k.on(HINT_BUTTON, MOD, function () {
   }
 });
 
-k.on("k", ALTMOD, function () {
-  curw().setFrame({
-    x: curw().frame().x,
-    y: curw().frame().y - 50,
-    width: curw().frame().width,
-    height: curw().frame().height
-  });
-});
-
 function buildhint (msg, win, icon) {
   var wf = win.frame();
   var wsf = win.screen().frame();
