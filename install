@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ "$(uname)" == "Darwin" ]; then
+  
+  echo "== Installing OSX config..."
+
+  if ! which brew &> /dev/null; then
+    echo -n "Installing homebrew..."
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    echo "done."
+  fi
+
+  if ! which stow &> /dev/null; then
+    echo -n "Installing stow..."
+    brew install gnu-stow
+    echo "done."
+  fi
+
+  echo -n "Stowing ~/.files/meat..."
+  stow meat
+  echo "done."
+
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+
+  echo "== No Linux config installation provided."
+
+fi
+
+echo "== Done."
