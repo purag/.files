@@ -9,7 +9,9 @@ set nocompatible
 " +---------+
 " | plugins |
 " +---------+
-
+call plug#begin("~/.vim/plugged")
+Plug 'metakirby5/codi.vim'
+call plug#end()
 
 
 " +-------------+
@@ -86,13 +88,14 @@ set mouse=a
 set scrolloff=5
 set sidescrolloff=5
 
+" disable bells
+set noerrorbells
+set visualbell
+set t_vb=
+
 " +--------------+
 " | key mappings |
 " +--------------+
-
-" save on ctrl+x (and return to insert mode if we were in it)
-inoremap <c-s>   <esc>:w<cr>
-noremap  <c-s>   :w<cr>
 
 " save and close a buffer using ctrl+x
 inoremap <c-x>   <esc>:x<cr>
@@ -118,8 +121,7 @@ noremap  <tab>   I<c-t><esc>
 noremap  <s-tab> I<c-d><esc>
 
 " Fix pasting
-inoremap <c-v>   <esc>]pa
-noremap  p       ]pa
+nnoremap  p       ]p
 
 " Fix undo
 inoremap <c-z>   <esc>ua
