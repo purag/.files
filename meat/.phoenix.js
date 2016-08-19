@@ -195,9 +195,10 @@ function showHints (windows, prefix) {
   }
 
   windows.forEach(function (win, i) {
-    var helper = win.app().windows().length > 1
-      ? "  |  " + win.title().substr(0, 15) + (win.title().length > 15 ? "…" : "")
-      : "";
+    var helper = "";
+    if (win.app().windows().length > 1) {
+      helper += "  |  " + win.title().substr(0, 15) + (win.title().length > 15 ? "…" : "");
+    }
     var hint = buildhint(prefix + HINT_CHARS[i] + helper, win);
 
     var activators = Object.keys(hints);
