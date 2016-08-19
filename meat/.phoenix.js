@@ -168,8 +168,8 @@ var escbind = null;
 var bsbind = null;
 
 function cancelHints () {
-  for (var ch in hints) {
-    hints[ch].modal.close();
+  for (var activator in hints) {
+    hints[activator].modal.close();
   };
   k.off(escbind);
   k.off(bsbind);
@@ -200,8 +200,9 @@ function showHints (windows, prefix) {
       : "";
     var hint = buildhint(prefix + HINT_CHARS[i] + helper, win);
 
-    for (var ch in hints) {
-      var hint2 = hints[ch].modal;
+    var activators = Object.keys(hints);
+    for (var l = 0; l < activators.length; l++) {
+      var hint2 = hints[activators[l]].modal;
       if (
         hint.origin.x < hint2.origin.x + hint2.frame().width
         && hint.origin.x + hint.frame().width > hint2.origin.x
@@ -210,8 +211,9 @@ function showHints (windows, prefix) {
       ) {
         hint.origin = {
           x: hint.origin.x,
-          y: hint.origin.y - hint.frame().height - PADDING
+          y: hint2.origin.y + hint2.frame().height + PADDING
         };
+        l = -1;
       }
     }
     
