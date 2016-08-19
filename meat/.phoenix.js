@@ -6,6 +6,7 @@ var w = Window;
 var s = Screen;
 var m = Mouse;
 var k = Key;
+var e = Event;
 
 var INCREMENT = 50;
 var PADDING = 10;
@@ -196,7 +197,7 @@ k.on(HINT_BUTTON, MOD, function () {
         ) {
           hint.origin = {
             x: hint.origin.x,
-            y: hint.origin.y - 65
+            y: hint.origin.y - hint.frame().height - PADDING
           };
         }
       }
@@ -219,6 +220,10 @@ k.on(HINT_BUTTON, MOD, function () {
   }
 });
 
+e.on("windowDidFocus", cancelHints);
+e.on("appDidActivate", cancelHints);
+e.on("screenDidChange", cancelHints);
+
 function buildhint (msg, win, icon) {
   var wf = win.frame();
   var wsf = win.screen().frame();
@@ -229,17 +234,15 @@ function buildhint (msg, win, icon) {
     weight: 16
   });
   var mf = modal.frame();
-  var x = Math.min(
-    Math.max(wf.x + wf.width / 2 - mf.width / 2, wsf.x),
-    wsf.x + wsf.width - mf.width
-  );
-  var y = Math.min(
-    Math.max(s.all()[0].frame().height - (wf.y + wf.height / 2 + mf.height / 2), wsf.y),
-    wsf.y + wsf.height - mf.height
-  );
   modal.origin = {
-    x: x,
-    y: y
+    x: Math.min(
+      Math.max(wf.x + wf.width / 2 - mf.width / 2, wsf.x),
+      wsf.x + wsf.width - mf.width
+    ),
+    y: Math.min(
+      Math.max(s.all()[0].frame().height - (wf.y + wf.height / 2 + mf.height / 2), wsf.y),
+      wsf.y + wsf.height - mf.height
+    )
   };
   modal.show();
   return modal;
