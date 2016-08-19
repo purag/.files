@@ -16,7 +16,7 @@ var ALTMOD = ["alt", "shift"];
 var HINT_APPEARANCE = "dark";
 var HINT_BUTTON = "space";
 var HINT_CANCEL = "escape";
-var HINT_CHARS = "AB"/*CDDEFGHIJKLMNOPQRSTUVWXYZ1234567890"*/
+var HINT_CHARS = "FJDKSLAGHRUEIWOVNCM";
 
 // DIRECTIONS
 var F  = "fill";
@@ -165,12 +165,14 @@ var hintsActive = false;
 var hintkeys = [];
 var hints = {};
 var escbind = null;
+var bsbind = null;
 
 function cancelHints () {
   for (var ch in hints) {
     hints[ch].modal.close();
   };
   k.off(escbind);
+  k.off(bsbind);
   hintkeys.map(k.off);
   hints = {};
   hintkeys = [];
@@ -179,26 +181,24 @@ function cancelHints () {
 
 function showHints (windows, prefix) {
   prefix = prefix || "";
-  var i;
 
   if (windows.length > HINT_CHARS.length) {
     var partitionSize = Math.floor(windows.length / HINT_CHARS.length);
-    for (i = 0; i < HINT_CHARS.length - 1; i++) {
+    var j;
+    for (j = 0; j < HINT_CHARS.length - 1; j++) {
       showHints(windows.slice(
-        partitionSize * i,
-        partitionSize * (i + 1)
-      ), prefix + HINT_CHARS[i]);
+        partitionSize * j,
+        partitionSize * (j + 1)
+      ), prefix + HINT_CHARS[j]);
     }
-    showHints(windows.slice(partitionSize * i), prefix + HINT_CHARS[i]);
-    return;
+    return showHints(windows.slice(partitionSize * j), prefix + HINT_CHARS[j]);
   }
 
-  i = 0;
-  windows.forEach(function (win) {
+  windows.forEach(function (win, i) {
     var helper = win.app().windows().length > 1
       ? "  |  " + win.title().substr(0, 15) + (win.title().length > 15 ? "…" : "")
       : "";
-    var hint = buildhint(prefix + HINT_CHARS[i] + helper, win, win.app().icon());
+    var hint = buildhint(prefix + HINT_CHARS[i] + helper, win);
 
     for (var ch in hints) {
       var hint2 = hints[ch].modal;
@@ -214,13 +214,13 @@ function showHints (windows, prefix) {
         };
       }
     }
-    Phoenix.log(prefix + HINT_CHARS[i]);
+    
     hints[prefix + HINT_CHARS[i]] = {
       win: win,
       modal: hint,
-      position: 0
+      position: 0,
+      active: true
     };
-    i++;
   });
   escbind = k.on(HINT_CANCEL, [], cancelHints);
   hintsActive = true;
@@ -233,12 +233,13 @@ k.on(HINT_BUTTON, MOD, function () {
     showHints(w.all({
       visible: true
     }));
-    HINT_CHARS.split().forEach(function (hintchar) {
+    var sequence = "";
+    HINT_CHARS.split("").forEach(function (hintchar) {
       hintkeys.push(k.on(hintchar, [], function () {
+        sequence += hintchar;
         for (var activator in hints) {
           var hint = hints[activator];
-          Phoenix.log("activator: " + activator);
-          Phoenix.log(hint.modal.msg);
+          if (!hint.active) continue;
           if (activator[hint.position] === hintchar) {
             hint.position++;
             if (hint.position === activator.length) {
@@ -247,26 +248,43 @@ k.on(HINT_BUTTON, MOD, function () {
                 x: hint.modal.origin.x + hint.modal.frame().width / 2,
                 y: s.all()[0].frame().height - hint.modal.origin.y - hint.modal.frame().height / 2
               });
-              cancelHints();
+              return cancelHints();
             }
+            hint.modal.text = hint.modal.text.substr(1);
           } else {
             hint.modal.close();
+            hint.active = false;
           }
         }
       }));
+    });
+    bsbind = k.on("delete", [], function () {
+      if (!sequence.length) cancelHints();
+      var letter = sequence[sequence.length - 1];
+      sequence = sequence.substr(0, sequence.length - 1);
+      for (var activator in hints) {
+        var hint = hints[activator];
+        if (hint.active) {
+          hint.position--;
+          hint.modal.text = letter + hint.modal.text;
+        } else if (activator.substr(0, sequence.length) === sequence) {
+          hint.modal.show();
+          hint.active = true;
+        }
+      }
     });
   }
 });
 
 e.on("mouseDidLeftClick", cancelHints);
 
-function buildhint (msg, win, icon) {
+function buildhint (msg, win) {
   var wf = win.frame();
   var wsf = win.screen().frame();
   var modal = Modal.build({
     text: msg,
     appearance: HINT_APPEARANCE,
-    icon: icon,
+    icon: win.app().icon(),
     weight: 16
   });
   var mf = modal.frame();
