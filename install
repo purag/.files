@@ -28,6 +28,12 @@ case "$(uname)" in
         sudo apt-get install stow
         echo "done."
       fi
+
+      if ! which ctags &> /dev/null; then
+        echo -n "Installing ctags..."
+        sudo apt-get install ctags
+        echo "done."
+      fi
     ;;
 
     *)
