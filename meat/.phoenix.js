@@ -16,7 +16,7 @@ var ALTMOD = ["alt", "shift"];
 var HINT_APPEARANCE = "dark";
 var HINT_BUTTON = "space";
 var HINT_CANCEL = "escape";
-var HINT_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+var HINT_CHARS = "AB"/*CDDEFGHIJKLMNOPQRSTUVWXYZ1234567890"*/
 
 // DIRECTIONS
 var F  = "fill";
@@ -162,68 +162,103 @@ for (var key in space_dirs) {
 
 // Hints
 var hintsActive = false;
+var hintkeys = [];
 var hints = {};
 var escbind = null;
 
 function cancelHints () {
   for (var ch in hints) {
     hints[ch].modal.close();
-    k.off(hints[ch].binding);
   };
   k.off(escbind);
+  hintkeys.map(k.off);
   hints = {};
+  hintkeys = [];
   hintsActive = false;
+}
+
+function showHints (windows, prefix) {
+  prefix = prefix || "";
+  var i;
+
+  if (windows.length > HINT_CHARS.length) {
+    var partitionSize = Math.floor(windows.length / HINT_CHARS.length);
+    for (i = 0; i < HINT_CHARS.length - 1; i++) {
+      showHints(windows.slice(
+        partitionSize * i,
+        partitionSize * (i + 1)
+      ), prefix + HINT_CHARS[i]);
+    }
+    showHints(windows.slice(partitionSize * i), prefix + HINT_CHARS[i]);
+    return;
+  }
+
+  i = 0;
+  windows.forEach(function (win) {
+    var helper = win.app().windows().length > 1
+      ? "  |  " + win.title().substr(0, 15) + (win.title().length > 15 ? "…" : "")
+      : "";
+    var hint = buildhint(prefix + HINT_CHARS[i] + helper, win, win.app().icon());
+
+    for (var ch in hints) {
+      var hint2 = hints[ch].modal;
+      if (
+        hint.origin.x < hint2.origin.x + hint2.frame().width
+        && hint.origin.x + hint.frame().width > hint2.origin.x
+        && hint.origin.y < hint2.origin.y + hint2.frame().height
+        && hint.origin.y + hint.frame().width > hint2.origin.y
+      ) {
+        hint.origin = {
+          x: hint.origin.x,
+          y: hint.origin.y - hint.frame().height - PADDING
+        };
+      }
+    }
+    Phoenix.log(prefix + HINT_CHARS[i]);
+    hints[prefix + HINT_CHARS[i]] = {
+      win: win,
+      modal: hint,
+      position: 0
+    };
+    i++;
+  });
+  escbind = k.on(HINT_CANCEL, [], cancelHints);
+  hintsActive = true;
 }
 
 k.on(HINT_BUTTON, MOD, function () {
   if (hintsActive) {
     cancelHints();
   } else {
-    var windows = w.all({
+    showHints(w.all({
       visible: true
-    });
-    var i = 0;
-    windows.forEach(function (win) {
-      var helper = win.app().windows().length > 1
-        ? "  |  " + win.title().substr(0, 15) + (win.title().length > 15 ? "…" : "")
-        : "";
-      var hint = buildhint(HINT_CHARS[i] + helper, win, win.app().icon());
-
-      for (var ch in hints) {
-        var hint2 = hints[ch].modal;
-        if (
-          hint.origin.x < hint2.origin.x + hint2.frame().width
-          && hint.origin.x + hint.frame().width > hint2.origin.x
-          && hint.origin.y < hint2.origin.y + hint2.frame().height
-          && hint.origin.y + hint.frame().width > hint2.origin.y
-        ) {
-          hint.origin = {
-            x: hint.origin.x,
-            y: hint.origin.y - hint.frame().height - PADDING
-          };
+    }));
+    HINT_CHARS.split().forEach(function (hintchar) {
+      hintkeys.push(k.on(hintchar, [], function () {
+        for (var activator in hints) {
+          var hint = hints[activator];
+          Phoenix.log("activator: " + activator);
+          Phoenix.log(hint.modal.msg);
+          if (activator[hint.position] === hintchar) {
+            hint.position++;
+            if (hint.position === activator.length) {
+              hint.win.focus();
+              m.move({
+                x: hint.modal.origin.x + hint.modal.frame().width / 2,
+                y: s.all()[0].frame().height - hint.modal.origin.y - hint.modal.frame().height / 2
+              });
+              cancelHints();
+            }
+          } else {
+            hint.modal.close();
+          }
         }
-      }
-
-      hints[HINT_CHARS[i]] = {
-        binding: k.on(HINT_CHARS[i], [], function () {
-          win.focus();
-          m.move({
-            x: hint.origin.x + hint.frame().width / 2,
-            y: s.all()[0].frame().height - hint.origin.y - hint.frame().height / 2
-          });
-          cancelHints();
-        }),
-        modal: hint
-      };
-      i++;
+      }));
     });
-    escbind = k.on(HINT_CANCEL, [], cancelHints);
-    hintsActive = true;
   }
 });
 
 e.on("mouseDidLeftClick", cancelHints);
-e.on("screenDidChange", cancelHints);
 
 function buildhint (msg, win, icon) {
   var wf = win.frame();
