@@ -4,7 +4,7 @@
 " | Date: 14 Jul 2016       |
 " +-------------------------+
 
-let mapleader = "\\""
+let mapleader = "\\"
 
 " +---------+
 " | plugins |
@@ -13,33 +13,43 @@ let mapleader = "\\""
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'metakirby5/codi.vim'
+Plug 'metakirby5/codi.vim' " {{{
+" }}}
 
-Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-peekaboo' " {{{
+" }}}
 
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter' " {{{
   let g:gitgutter_map_keys = 0
   nmap <leader>ga <Plug>GitGutterStageHunk
   nmap <leader>gu <Plug>GitGutterUndoHunk
   nmap <leader>gp <Plug>GitGutterPreviewHunk
   nmap <leader>g] <Plug>GitGutterNextHunk
   nmap <leader>g[ <Plug>GitGutterPrevHunk
+" }}}
 
-Plug 'Yggdroot/indentline'
-  let g:indentLine_color_term = 8
-  let g:indentLine_character = '|'
+Plug 'Yggdroot/indentline' " {{{
+  set conceallevel=1
+  let g:indentLine_conceallevel = 1
+  let g:indentLine_color_term = 0
+" }}}
 
-Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch.vim' " {{{
+" }}}
 
-Plug 'osyo-manga/vim-over'
+Plug 'osyo-manga/vim-over' " {{{
+" }}}
 
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot' " {{{
+" }}}
 
 if (version >= 704)
-  Plug 'ludovicchabant/vim-gutentags'
+  Plug 'ludovicchabant/vim-gutentags' " {{{
+  " }}}
 endif
 
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs' " {{{
+" }}}
 
 call plug#end()
 
@@ -180,9 +190,6 @@ noremap  <c-z>   u
 " efficiency ftw
 inoremap jj      <esc>
 nnoremap ;       :
-
-" expand a fold when we go to it
-nnoremap G       GzO
 
 " }}}
 
