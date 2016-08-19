@@ -222,8 +222,7 @@ k.on(HINT_BUTTON, MOD, function () {
   }
 });
 
-e.on("windowDidFocus", cancelHints);
-e.on("appDidActivate", cancelHints);
+e.on("mouseDidLeftClick", cancelHints);
 e.on("screenDidChange", cancelHints);
 
 function buildhint (msg, win, icon) {
