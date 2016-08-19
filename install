@@ -6,18 +6,23 @@ case "$(uname)" in
 
   if ! which brew &> /dev/null; then
     echo -n "Installing homebrew..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    echo "===== curl homebrew" >> install_log
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/installi)" >> install_log 2>&1
+    echo "===== END curl homebrew" >> install_log
     echo "done."
   fi
 
   if ! which stow &> /dev/null; then
     echo -n "Installing stow..."
-    brew install gnu-stow
+    echo "===== brew install gnu-stow" >> install_log
+    brew install gnu-stow >> install_log 2>&1
+    echo "===== END brew install gnu-stow" >> install_log
     echo "done."
   fi
 ;;
 
 "Linux")
+    # https://github.com/dylanaraps/neofetch/blob/master/neofetch
     distro="$(awk -F 'NAME=' '/^NAME=/ {printf $2}' /etc/*ease)"
     distro="${distro//\"}"
 
@@ -25,35 +30,45 @@ case "$(uname)" in
     "Ubuntu")
       if ! which stow &> /dev/null; then
         echo -n "Installing stow..."
-        sudo apt-get install stow
+        echo "===== sudo apt-get install stow" >> install_log
+        sudo apt-get install stow >> install_log 2>&1
+        echo "===== END sudo apt-get install stow" >> install_log
         echo "done."
       fi
 
       if ! which ctags &> /dev/null; then
         echo -n "Installing ctags..."
-        sudo apt-get install ctags
+        echo "===== sudo apt-get install exuberant-ctags" >> install_log
+        sudo apt-get install exuberant-ctags >> install_log 2>&1
+        echo "===== END sudo apt-get install exuberant-ctags" >> install_log
         echo "done."
       fi
     ;;
 
     *)
-      echo "== No Linux config installation provided."
+      echo "== No config installation provided for [$distro]."
       exit 1
     esac
 esac
 
 echo -n "Stowing ~/.files/meat..."
-stow meat
+echo "===== stow meat" >> install_log
+stow meat >> install_log 2>&1
+echo "===== END stow meat" >> install_log
 echo "done."
 
 echo -n "Cloning purag/scripts to ~/scripts..."
-git clone https://github.com/purag/scripts.git ~/scripts &> /dev/null
+echo "===== git clone purag/scripts.git" >> install_log
+git clone https://github.com/purag/scripts.git ~/scripts >> install_log 2>&1
+echo "===== END git clone purag/scripts.git" >> install_log
 echo "done."
 
 if [ ! -f "~/.vim/autoload/plug.vim" ]; then
   echo -n "Downloading vim-plug..."
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
+  echo "===== curl vim-plug" >> install_log
+  curl -fsvLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> install_log 2>&1
+  echo "===== END curl vim-plug" >> install_log
   echo "done."
 fi
 
@@ -62,3 +77,4 @@ vim +PlugInstall +qall
 echo "done."
 
 echo "== Done."
+echo "== View logs in $(pwd)/install_log."
