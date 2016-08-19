@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$(uname)" == "Darwin" ]; then
-
+case "$(uname)" in
+"Darwin")
   echo "== Installing OSX config..."
 
   if ! which brew &> /dev/null; then
@@ -15,19 +15,44 @@ if [ "$(uname)" == "Darwin" ]; then
     brew install gnu-stow
     echo "done."
   fi
+;;
 
-  echo -n "Stowing ~/.files/meat..."
-  stow meat
+"Linux")
+    distro="$(awk -F 'NAME=' '/^NAME=/ {printf $2}' /etc/*ease)"
+    distro="${distro//\"}"
+
+    case "$distro" in
+    "Ubuntu")
+      if ! which stow &> /dev/null; then
+        echo -n "Installing stow..."
+        sudo apt-get install stow
+        echo "done."
+      fi
+    ;;
+
+    *)
+      echo "== No Linux config installation provided."
+      exit 1
+    esac
+esac
+
+echo -n "Stowing ~/.files/meat..."
+stow meat
+echo "done."
+
+echo -n "Cloning purag/scripts to ~/scripts..."
+git clone https://github.com/purag/scripts.git ~/scripts &> /dev/null
+echo "done."
+
+if [ ! -f "~/.vim/autoload/plug.vim" ]; then
+  echo -n "Downloading vim-plug..."
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
   echo "done."
-
-  echo -n "Cloning purag/scripts to ~/scripts..."
-  git clone https://github.com/purag/scripts.git ~/scripts &> /dev/null
-  echo "done."
-
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-
-  echo "== No Linux config installation provided."
-
 fi
+
+echo -n "Installing vim plugins..."
+vim +PlugInstall +qall
+echo "done."
 
 echo "== Done."
