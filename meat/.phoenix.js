@@ -204,10 +204,10 @@ function showHints (windows, prefix) {
     for (var l = 0; l < activators.length; l++) {
       var hint2 = hints[activators[l]].modal;
       if (
-        hint.origin.x < hint2.origin.x + hint2.frame().width
-        && hint.origin.x + hint.frame().width > hint2.origin.x
-        && hint.origin.y < hint2.origin.y + hint2.frame().height
-        && hint.origin.y + hint.frame().width > hint2.origin.y
+        hint.origin.x < hint2.origin.x + hint2.frame().width + PADDING
+        && hint.origin.x + hint.frame().width > hint2.origin.x - PADDING
+        && hint.origin.y < hint2.origin.y + hint2.frame().height + PADDING
+        && hint.origin.y + hint.frame().width > hint2.origin.y - PADDING
       ) {
         hint.origin = {
           x: hint.origin.x,
