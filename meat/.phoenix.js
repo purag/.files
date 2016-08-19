@@ -184,14 +184,13 @@ function showHints (windows, prefix) {
 
   if (windows.length > HINT_CHARS.length) {
     var partitionSize = Math.floor(windows.length / HINT_CHARS.length);
-    var j;
-    for (j = 0; j < HINT_CHARS.length - 1; j++) {
-      showHints(windows.slice(
-        partitionSize * j,
-        partitionSize * (j + 1)
-      ), prefix + HINT_CHARS[j]);
+    var lists = _.toArray(_.groupBy(windows, function (win, k) {
+      return k % HINT_CHARS.length;
+    }));
+    for (var j = 0; j < HINT_CHARS.length; j++) {
+      showHints(lists[j], prefix + HINT_CHARS[j]);
     }
-    return showHints(windows.slice(partitionSize * j), prefix + HINT_CHARS[j]);
+    return;
   }
 
   windows.forEach(function (win, i) {
