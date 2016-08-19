@@ -184,7 +184,9 @@ k.on(HINT_BUTTON, MOD, function () {
     });
     var i = 0;
     windows.forEach(function (win) {
-      var helper = win.app().windows().length > 1 ? "  |  " + win.title().substr(0, 15) : "";
+      var helper = win.app().windows().length > 1
+        ? "  |  " + win.title().substr(0, 15) + (win.title().length > 15 ? "…" : "")
+        : "";
       var hint = buildhint(HINT_CHARS[i] + helper, win, win.app().icon());
 
       for (var ch in hints) {
