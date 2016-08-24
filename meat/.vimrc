@@ -38,6 +38,8 @@ Plug 'haya14busa/incsearch.vim' " {{{
 " }}}
 
 Plug 'osyo-manga/vim-over' " {{{
+  nnoremap <leader>s <esc>:OverCommandLine<cr>%s/
+  vnoremap <leader>s <esc>gv:OverCommandLine<cr>s/
 " }}}
 
 Plug 'sheerun/vim-polyglot' " {{{
@@ -49,6 +51,10 @@ if (version >= 704)
 endif
 
 Plug 'jiangmiao/auto-pairs' " {{{
+  let g:AutoPairsMultilineClose = 0
+" }}}
+
+Plug 'terryma/vim-multiple-cursors' " {{{
 " }}}
 
 call plug#end()
@@ -122,11 +128,11 @@ set fo+=r
 " +--------+
 " {{{
 
-  set ignorecase
-  set smartcase
-  set incsearch
-  set showmatch
-  set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+set showmatch
+set hlsearch
 
 " }}}
 
@@ -177,8 +183,6 @@ noremap  <c-t>   <esc>:tabnew<cr>
 inoremap <s-tab> <c-d>
 vnoremap >       >gv
 vnoremap <       <gv
-noremap  <tab>   I<c-t><esc>
-noremap  <s-tab> I<c-d><esc>
 
 " Fix pasting
 nnoremap  p       ]p
@@ -190,6 +194,9 @@ noremap  <c-z>   u
 " efficiency ftw
 inoremap jj      <esc>
 nnoremap ;       :
+
+" clear highlights on redraw
+nnoremap <c-l>   :nohl<cr><c-l>
 
 " }}}
 
