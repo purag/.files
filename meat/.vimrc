@@ -57,6 +57,14 @@ Plug 'jiangmiao/auto-pairs' " {{{
 Plug 'terryma/vim-multiple-cursors' " {{{
 " }}}
 
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+
+Plug 'junegunn/fzf.vim' " {{{
+  nnoremap <leader>zf <esc>:Files<cr>
+  nnoremap <leader>zh <esc>:History<cr>
+  nnoremap <leader>zg <esc>:GFiles<cr>
+" }}}
+
 call plug#end()
 
 command! PI PlugInstall
