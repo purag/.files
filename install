@@ -1,23 +1,27 @@
 #!/bin/bash
 
+function trace_exec () {
+  echo "====== $@" | tee log/install
+  "$@" 2>&1 | tee log/install
+  echo "====== END $@" | tee log/install
+}
+
+mkdir -p log
+
 case "$(uname)" in
 "Darwin")
   echo "== Installing OSX config..."
 
   if ! which brew &> /dev/null; then
-    echo -n "Installing homebrew..."
-    echo "===== curl homebrew" >> install_log
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/installi)" >> install_log 2>&1
-    echo "===== END curl homebrew" >> install_log
-    echo "done."
+    echo "==== Installing homebrew..."
+    trace_exec /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/installi)"
+    echo "==== Done."
   fi
 
   if ! which stow &> /dev/null; then
-    echo -n "Installing stow..."
-    echo "===== brew install gnu-stow" >> install_log
-    brew install gnu-stow >> install_log 2>&1
-    echo "===== END brew install gnu-stow" >> install_log
-    echo "done."
+    echo "==== Installing stow..."
+    trace_exec brew install gnu-stow
+    echo "==== Done."
   fi
 ;;
 
@@ -29,19 +33,15 @@ case "$(uname)" in
     case "$distro" in
     "Ubuntu")
       if ! which stow &> /dev/null; then
-        echo -n "Installing stow..."
-        echo "===== sudo apt-get install stow" >> install_log
-        sudo apt-get install stow >> install_log 2>&1
-        echo "===== END sudo apt-get install stow" >> install_log
-        echo "done."
+        echo "==== Installing stow..."
+        trace_exec sudo apt-get install stow
+        echo "==== Done."
       fi
 
       if ! which ctags &> /dev/null; then
-        echo -n "Installing ctags..."
-        echo "===== sudo apt-get install exuberant-ctags" >> install_log
-        sudo apt-get install exuberant-ctags >> install_log 2>&1
-        echo "===== END sudo apt-get install exuberant-ctags" >> install_log
-        echo "done."
+        echo "==== Installing ctags..."
+        trace_exec sudo apt-get install exuberant-ctags
+        echo "==== Done."
       fi
     ;;
 
@@ -51,30 +51,24 @@ case "$(uname)" in
     esac
 esac
 
-echo -n "Stowing ~/.files/meat..."
-echo "===== stow meat" >> install_log
-stow meat >> install_log 2>&1
-echo "===== END stow meat" >> install_log
-echo "done."
+echo "==== Stowing ~/.files/meat..."
+trace_exec stow meat
+echo "==== Done."
 
-echo -n "Cloning purag/scripts to ~/scripts..."
-echo "===== git clone purag/scripts.git" >> install_log
-git clone https://github.com/purag/scripts.git ~/scripts >> install_log 2>&1
-echo "===== END git clone purag/scripts.git" >> install_log
-echo "done."
+echo "==== Cloning purag/scripts to ~/scripts..."
+trace_exec git clone https://github.com/purag/scripts.git ~/scripts
+echo "==== Done."
 
 if [ ! -f "~/.vim/autoload/plug.vim" ]; then
-  echo -n "Downloading vim-plug..."
-  echo "===== curl vim-plug" >> install_log
-  curl -fsvLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> install_log 2>&1
-  echo "===== END curl vim-plug" >> install_log
-  echo "done."
+  echo "==== Downloading vim-plug..."
+  trace_exec curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  echo "==== Done."
 fi
 
-echo -n "Installing vim plugins..."
+echo "==== Installing vim plugins..."
 vim +PlugInstall +qall
-echo "done."
+echo "==== Done."
 
 echo "== Done."
-echo "== View logs in $(pwd)/install_log."
+echo "== View logs in $(pwd)/log/install."
