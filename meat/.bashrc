@@ -9,6 +9,9 @@ __blue="\[\e[34m\]"
 __magenta="\[\e[35m\]"
 __reset="\[\e[0m\]"
 
+source ~/.vim/plugged/fzf/shell/completion.bash
+source ~/.vim/plugged/fzf/shell/key-bindings.bash
+
 git_prompt () {
   if git branch &> /dev/null; then
     local branchinfo=$(git branch -vv | grep "^*")
