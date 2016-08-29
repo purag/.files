@@ -1,27 +1,34 @@
 #!/bin/bash
 
+__green="\033[32m"
+__red="\033[31m"
+__gray="\033[1;30m"
+__blue="\033[34m"
+__magenta="\033[35m"
+__reset="\033[0m"
+
 function trace_exec () {
-  echo "====== $@" | tee log/install
-  "$@" 2>&1 | tee log/install
-  echo "====== END $@" | tee log/install
+  echo -e "  $__green$1$__reset"
+  shift
+  echo -e "    $__gray$@$__reset" | tee log/install
+  "$@" 2>&1 | sed "s/^/    /" | tee log/install
+  echo
 }
 
 mkdir -p log
 
 case "$(uname)" in
 "Darwin")
-  echo "== Installing OSX config..."
+  echo -e "${__blue}Installing OSX config...$__reset"
 
   if ! which brew &> /dev/null; then
-    echo "==== Installing homebrew..."
-    trace_exec /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/installi)"
-    echo "==== Done."
+    trace_exec "Installing homebrew..." \
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/installi)"
   fi
 
   if ! which stow &> /dev/null; then
-    echo "==== Installing stow..."
-    trace_exec brew install gnu-stow
-    echo "==== Done."
+    trace_exec "Installing stow..." \
+      brew install gnu-stow
   fi
 ;;
 
@@ -30,45 +37,41 @@ case "$(uname)" in
     distro="$(awk -F 'NAME=' '/^NAME=/ {printf $2}' /etc/*ease)"
     distro="${distro//\"}"
 
+    echo -e "${__blue}Installing $distro config...$__reset"
+
     case "$distro" in
     "Ubuntu")
       if ! which stow &> /dev/null; then
-        echo "==== Installing stow..."
-        trace_exec sudo apt-get install stow
-        echo "==== Done."
+        trace_exec "Installing stow..." \
+          sudo apt-get install stow
       fi
 
       if ! which ctags &> /dev/null; then
-        echo "==== Installing ctags..."
-        trace_exec sudo apt-get install exuberant-ctags
-        echo "==== Done."
+        trace_exec "Installing ctags..." \
+          sudo apt-get install exuberant-ctags
       fi
     ;;
 
     *)
-      echo "== No config installation provided for [$distro]."
+      echo -e "${__red}No config installation provided for [$distro].$__reset"
       exit 1
     esac
 esac
 
-echo "==== Stowing ~/.files/meat..."
-trace_exec stow meat
-echo "==== Done."
+trace_exec "Stowing ~/.files/meat..." \
+  stow meat
 
-echo "==== Cloning purag/scripts to ~/scripts..."
-trace_exec git clone https://github.com/purag/scripts.git ~/scripts
-echo "==== Done."
+trace_exec "Cloning purag/scripts to ~/scripts..." \
+  git clone https://github.com/purag/scripts.git ~/scripts
 
 if [ ! -f "~/.vim/autoload/plug.vim" ]; then
-  echo "==== Downloading vim-plug..."
-  trace_exec curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  echo "==== Done."
+  trace_exec "Downloading vim-plug..." \
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-echo "==== Installing vim plugins..."
-vim +PlugInstall +qall
-echo "==== Done."
+trace_exec "Installing vim plugins..." \
+  vim +PlugInstall +qall
 
-echo "== Done."
-echo "== View logs in $(pwd)/log/install."
+echo -e "${__blue}Done."
+echo -e "View logs in $(pwd)/log/install.$__reset"
