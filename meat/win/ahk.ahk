@@ -1,4 +1,5 @@
 PADDING := 10
+M := "maximize"
 F := "fill"
 N := "north"
 S := "south"
@@ -12,7 +13,8 @@ SE := "se"
 MOD := "+#"
 
 ; Snap bindings
-snap_dirs := { "Up":    F
+snap_dirs := { "Enter": F
+             , "Up":    M
              , "Left":  W
              , "Right": E
              , "a":     NW
@@ -21,9 +23,9 @@ snap_dirs := { "Up":    F
              , "/":     SE}
 
 ; Padded screen size helpers
-screenOrigin := { x: PADDING - 4 ; this is ugly because windows seem to have an invisible left border
+screenOrigin := { x: PADDING
                 , y: PADDING}
-screenWidth  := A_ScreenWidth - PADDING * 2 + 4 ; and I have to account for it here :(
+screenWidth  := A_ScreenWidth - PADDING * 2
 screenHeight := A_ScreenHeight - PADDING * 2
 
 ; Snap a window in the given direction
@@ -40,10 +42,13 @@ snapwin(dir) {
     x := x + screenWidth - width
   if (dir = SE OR dir = SW)
     y := y + screenHeight - height
-  if (dir = F)
+  if (dir = F OR dir = M)
     width := screenWidth
-  if (dir = F OR dir = E OR dir = W)
+  if (dir = F OR dir = M OR dir = E OR dir = W)
     height := screenHeight
+
+  if (dir = F)
+    winset, style, -0xC40000, %title%
 
   winmove, %title%, , %x%, %y%, %width%, %height%
 }
