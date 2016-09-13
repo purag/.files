@@ -2,12 +2,12 @@ alias ls='ls -GF'
 alias ll='ls -la'
 alias grep='grep --color=auto'
 
-__green="\e[1;32m"
-__red="\e[1;31m"
-__gray="\e[1;30m"
-__blue="\e[1;34m"
-__magenta="\e[1;35m"
 __reset="\e[0m"
+__gray="\e[1;30m"
+__red="\e[0;31m"
+__green="\e[0;32m"
+__blue="\e[0;34m"
+__magenta="\e[0;35m"
 
 source ~/.vim/plugged/fzf/shell/completion.bash
 source ~/.vim/plugged/fzf/shell/key-bindings.bash
