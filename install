@@ -7,6 +7,8 @@ __blue="\033[34m"
 __magenta="\033[35m"
 __reset="\033[0m"
 
+cd ~/.files
+
 function trace_exec () {
   echo -e "  $__green$1$__reset"
   shift
@@ -58,8 +60,8 @@ case "$(uname)" in
     esac
 esac
 
-trace_exec "Stowing ~/.files/meat..." \
-  stow meat
+trace_exec "Stowing ~/.files/meat/*..." \
+  stow -d meat -t ~ $(find meat/* -type d -printf '%f\n')
 
 trace_exec "Cloning purag/scripts to ~/scripts..." \
   git clone https://github.com/purag/scripts.git ~/scripts
