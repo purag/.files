@@ -1,0 +1,23 @@
+[user]
+	name = Purag Moumdjian
+	email = purmou@gmail.com
+[core]
+	excludesfile = ~/.gitignore
+[push]
+	default = upstream
+[rebase]
+        autosquash = true
+[rerere]
+        enabled = true
+[color]
+        ui = auto
+        diff = auto
+        status = auto
+        branch = auto
+[alias]
+        # add
+        a  = add
+
+        # log
+        l  = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short
+        lg = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short --graph

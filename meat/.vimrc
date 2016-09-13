@@ -65,6 +65,12 @@ Plug 'junegunn/fzf.vim' " {{{
   nnoremap <leader>zg <esc>:GFiles<cr>
 " }}}
 
+Plug 'sickill/vim-monokai' " {{{
+" }}}
+
+Plug 'rakr/vim-two-firewatch' " {{{
+" }}}
+
 call plug#end()
 
 command! PI PlugInstall
@@ -110,11 +116,14 @@ autocmd FileType java set softtabstop=8
 " Enable syntax highlighting
 syntax on
 
+" Highlight the current line
+set cursorline
+
 " Show line numbers
 set nu
 
 " Set the color scheme to desert
-colors desert
+colors monokai
 
 " }}}
 
