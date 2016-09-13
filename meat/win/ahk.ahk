@@ -1,5 +1,4 @@
 PADDING := 10
-M := "maximize"
 F := "fill"
 N := "north"
 S := "south"
@@ -13,8 +12,7 @@ SE := "se"
 MOD := "+#"
 
 ; Snap bindings
-snap_dirs := { "Enter": F
-             , "Up":    M
+snap_dirs := { "Up":    F
              , "Left":  W
              , "Right": E
              , "a":     NW
@@ -46,9 +44,6 @@ snapwin(dir) {
     width := screenWidth
   if (dir = F OR dir = M OR dir = E OR dir = W)
     height := screenHeight
-
-  if (dir = F)
-    winset, style, -0xC40000, %title%
 
   winmove, %title%, , %x%, %y%, %width%, %height%
 }
