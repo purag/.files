@@ -10,6 +10,9 @@ SW := "sw"
 SE := "se"
 
 MOD := "+#"
+ALTMOD := "+!"
+
+INCREMENT := 50
 
 ; Snap bindings
 snap_dirs := { "Up":    F
@@ -19,6 +22,32 @@ snap_dirs := { "Up":    F
              , "'":     NE
              , "z":     SW
              , "/":     SE}
+
+size_dirs := { "h": W
+             , "j": S
+             , "k": N
+             , "l": E}
+
+opposite(dir) {
+  global
+
+  if (dir = N)
+    return S
+  else if (dir = S)
+    return N
+  else if (dir = W)
+    return E
+  else if (dir = E)
+    return W
+  else if (dir = NW)
+    return SE
+  else if (dir = NE)
+    return SW
+  else if (dir = SW)
+    return NE
+  else if (dir = SE)
+    return NW
+}
 
 ; Padded screen size helpers
 screenOrigin := { x: PADDING
@@ -48,8 +77,34 @@ snapwin(dir) {
   winmove, %title%, , %x%, %y%, %width%, %height%
 }
 
+resizewin(dir, coeff) {
+  global
+  wingetactivetitle, title
+
+  wingetpos, x, y, width, height, %title%
+
+  if (dir = W)
+    x := x + coeff * -1
+  if (dir = N)
+    y := y + coeff * -1
+  if (dir = E OR dir = W)
+    width := width + coeff
+  if (dir = N OR dir = S)
+    height := height + coeff
+
+  winmove, %title%, , %x%, %y%, %width%, %height%
+}
+
+; Snap bindings
 for key, dir in snap_dirs {
   bind(MOD . key, "snapwin", dir)
+}
+
+; Size bindings
+for key, dir in size_dirs {
+  opp := opposite(dir)
+  bind(MOD . key, "resizewin", dir, INCREMENT)
+  bind(ALTMOD . key, "resizewin", opp, -INCREMENT)
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
