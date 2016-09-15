@@ -15,13 +15,13 @@ ALTMOD := "+!"
 INCREMENT := 50
 
 ; Snap bindings
-snap_dirs := { "Up":    F
-             , "Left":  W
-             , "Right": E
-             , "a":     NW
-             , "'":     NE
-             , "z":     SW
-             , "/":     SE}
+snap_dirs := { "Up": F
+             , "s":  W
+             , ";":  E
+             , "a":  NW
+             , "'":  NE
+             , "x":  SW
+             , ".":  SE}
 
 size_dirs := { "h": W
              , "j": S
