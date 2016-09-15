@@ -49,12 +49,6 @@ opposite(dir) {
     return NW
 }
 
-; Padded screen size helpers
-screenOrigin := { x: PADDING
-                , y: PADDING}
-screenWidth  := A_ScreenWidth - PADDING * 2
-screenHeight := A_ScreenHeight - PADDING * 2
-
 getScreenDimensions(ByRef x, ByRef y, ByRef width, ByRef height, wintitle) {
   global
   winHandle := WinExist(wintitle) ; The window to operate on
@@ -79,19 +73,19 @@ getScreenDimensions(ByRef x, ByRef y, ByRef width, ByRef height, wintitle) {
 snapwin(dir) {
   global
   wingetactivetitle, title
-  getScreenDimensions(x, y, width, height, title)
+  getScreenDimensions(x, y, scrwidth, scrheight, title)
 
-  width := (width - PADDING) / 2
-  height := (height - PADDING) / 2
+  local width := (scrwidth - PADDING) / 2
+  local height := (scrheight - PADDING) / 2
 
   if (dir = E OR dir = NE OR dir = SE)
-    x := x + screenWidth - width
+    x := x + scrwidth - width
   if (dir = SE OR dir = SW)
-    y := y + screenHeight - height
+    y := y + scrheight - height
   if (dir = F OR dir = M)
-    width := screenWidth
+    width := scrwidth
   if (dir = F OR dir = M OR dir = E OR dir = W)
-    height := screenHeight
+    height := scrheight
 
   winmove, %title%, , %x%, %y%, %width%, %height%
 }
