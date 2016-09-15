@@ -55,15 +55,34 @@ screenOrigin := { x: PADDING
 screenWidth  := A_ScreenWidth - PADDING * 2
 screenHeight := A_ScreenHeight - PADDING * 2
 
+getScreenDimensions(ByRef x, ByRef y, ByRef width, ByRef height, wintitle) {
+  global
+  winHandle := WinExist(wintitle) ; The window to operate on
+
+  ; https://autohotkey.com/boards/viewtopic.php?p=78862#p78862
+  VarSetCapacity(monitorInfo, 40), NumPut(40, monitorInfo)
+  monitorHandle := DllCall("MonitorFromWindow", "Ptr", winHandle, "UInt", 0x2)
+  DllCall("GetMonitorInfo", "Ptr", monitorHandle, "Ptr", &monitorInfo)
+
+  left   := NumGet(monitorInfo, 20, "Int")
+  top    := NumGet(monitorInfo, 24, "Int")
+  right  := NumGet(monitorInfo, 28, "Int")
+  bottom := NumGet(monitorInfo, 32, "Int")
+
+  x := left + PADDING
+  y := top + PADDING
+  width := right - left - PADDING * 2
+  height := bottom - top - PADDING * 2
+}
+
 ; Snap a window in the given direction
 snapwin(dir) {
   global
   wingetactivetitle, title
+  getScreenDimensions(x, y, width, height, title)
 
-  local x := screenOrigin.x
-  local y := screenOrigin.y
-  local width := (screenWidth - PADDING) / 2
-  local height := (screenHeight - PADDING) / 2
+  width := (width - PADDING) / 2
+  height := (height - PADDING) / 2
 
   if (dir = E OR dir = NE OR dir = SE)
     x := x + screenWidth - width
