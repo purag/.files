@@ -19,6 +19,9 @@ Plug 'metakirby5/codi.vim' " {{{
 Plug 'junegunn/vim-peekaboo' " {{{
 " }}}
 
+Plug 'tpope/vim-fugitive' " {{{
+" }}}
+
 Plug 'airblade/vim-gitgutter' " {{{
   let g:gitgutter_map_keys = 0
   nmap <leader>ga <Plug>GitGutterStageHunk
