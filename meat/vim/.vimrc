@@ -75,6 +75,28 @@ Plug 'sickill/vim-monokai' " {{{
 Plug 'rakr/vim-two-firewatch' " {{{
 " }}}
 
+Plug 'tpope/vim-commentary' " {{{
+" }}}
+
+Plug 'vim-airline/vim-airline' " {{{
+  let g:airline_powerline_fonts = 1
+  set laststatus=2
+" }}}
+
+Plug 'vim-airline/vim-airline-themes' " {{{
+  function! ToggleAirlineTheme()
+    if g:airline_theme == "raven"
+      let g:airline_theme = "wombat"
+    else
+      let g:airline_theme = "raven"
+    endif
+    AirlineRefresh
+  endfunction
+  nnoremap <leader>at :call ToggleAirlineTheme()<cr>
+
+  let g:airline_theme = 'wombat'
+" }}}
+
 call plug#end()
 
 command! PI PlugInstall
