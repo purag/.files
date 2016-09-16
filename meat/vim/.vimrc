@@ -88,11 +88,10 @@ Plug 'vim-airline/vim-airline' " {{{
 Plug 'vim-airline/vim-airline-themes' " {{{
   function! ToggleAirlineTheme()
     if g:airline_theme == "raven"
-      let g:airline_theme = "wombat"
+      AirlineTheme wombat
     else
-      let g:airline_theme = "raven"
+      AirlineTheme raven
     endif
-    AirlineRefresh
   endfunction
   nnoremap <leader>at :call ToggleAirlineTheme()<cr>
 
