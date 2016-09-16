@@ -20,14 +20,16 @@ Plug 'junegunn/vim-peekaboo' " {{{
 " }}}
 
 Plug 'tpope/vim-fugitive' " {{{
-  nmap <leader>gb :Git checkout 
+  nmap <leader>gb :Gblame<cr>
+  nmap <leader>gc :Gcommit<cr>
+  nmap <leader>gp :Gpush<cr>
 " }}}
 
 Plug 'airblade/vim-gitgutter' " {{{
   let g:gitgutter_map_keys = 0
   nmap <leader>ga <Plug>GitGutterStageHunk
   nmap <leader>gu <Plug>GitGutterUndoHunk
-  nmap <leader>gp <Plug>GitGutterPreviewHunk
+  " nmap <leader>gp <Plug>GitGutterPreviewHunk
   nmap <leader>g] <Plug>GitGutterNextHunk
   nmap <leader>g[ <Plug>GitGutterPrevHunk
 " }}}
