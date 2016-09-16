@@ -1,5 +1,5 @@
 " +-------------------------+
-" | .vimrc                  |       
+" | .vimrc                  |
 " | Author: Purag Moumdjian |
 " | Date: 14 Jul 2016       |
 " +-------------------------+
@@ -20,6 +20,7 @@ Plug 'junegunn/vim-peekaboo' " {{{
 " }}}
 
 Plug 'tpope/vim-fugitive' " {{{
+  nmap <leader>gb :Git checkout 
 " }}}
 
 Plug 'airblade/vim-gitgutter' " {{{
