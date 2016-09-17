@@ -50,7 +50,7 @@ opposite(dir) {
 }
 
 getScreenDimensions(ByRef x, ByRef y, ByRef width, ByRef height, wintitle) {
-  global
+  global PADDING
   winHandle := WinExist(wintitle) ; The window to operate on
 
   ; https://autohotkey.com/boards/viewtopic.php?p=78862#p78862
@@ -92,6 +92,7 @@ snapwin(dir) {
 
 resizewin(dir, coeff) {
   global
+  local x, y, scrwidth, scrheight, title, width, height
   wingetactivetitle, title
 
   wingetpos, x, y, width, height, %title%
