@@ -15,13 +15,15 @@ ALTMOD := "+!"
 INCREMENT := 50
 
 ; Snap bindings
-snap_dirs := { "Up": F
-             , "s":  W
-             , ";":  E
-             , "a":  NW
-             , "'":  NE
-             , "x":  SW
-             , ".":  SE}
+snap_cells := { "a":  0
+              , "s":  1
+              , ";":  2
+              , "'":  3
+              , "z":  4
+              , "x":  5
+              , ".":  6
+              , "/":  7}
+snap_start_cell := ""
 
 size_dirs := { "h": W
              , "j": S
@@ -69,25 +71,45 @@ getScreenDimensions(ByRef x, ByRef y, ByRef width, ByRef height, wintitle) {
   height := bottom - top - PADDING * 2
 }
 
+PositionInGrid(cells, start, end) {
+  global PADDING
+  getScreenDimensions(x, y, width, height, "A")
+
+  cols := cells / 2
+  cellwidth := (width - ((cols - 1) * PADDING)) / cols
+  cellheight := (height - PADDING) / 2
+
+  startc := Mod(start, cols)
+  startw := start // cols
+  startl := x + (cellwidth + PADDING) * startc
+  startt := y + (cellheight + PADDING) * startw
+  startr := startl + cellwidth
+  startb := startt + cellheight
+
+  endc := Mod(end, cols)
+  endw := end // cols
+  endl := x + (cellwidth + PADDING) * endc
+  endt := y + (cellheight + PADDING) * endw
+  endr := endl + cellwidth
+  endb := endt + cellheight
+
+  left := (startl < endl ? startl : endl)
+  top  := (startt < endt ? startt : endt)
+  right := (startr > endr ? startr : endr)
+  bottom := (startb > endb ? startb : endb)
+
+  winmove, %snap_win_title%, , left, top, right - left, bottom - top
+}
+
 ; Snap a window in the given direction
-snapwin(dir) {
-  global
-  wingetactivetitle, title
-  getScreenDimensions(x, y, scrwidth, scrheight, title)
-
-  local width := (scrwidth - PADDING) / 2
-  local height := (scrheight - PADDING) / 2
-
-  if (dir = E OR dir = NE OR dir = SE)
-    x := x + scrwidth - width
-  if (dir = SE OR dir = SW)
-    y := y + scrheight - height
-  if (dir = F OR dir = M)
-    width := scrwidth
-  if (dir = F OR dir = M OR dir = E OR dir = W)
-    height := scrheight
-
-  winmove, %title%, , %x%, %y%, %width%, %height%
+snapwin(cell) {
+  global snap_start_cell
+  if (snap_start_cell = "") {
+    snap_start_cell := cell
+  } else {
+    PositionInGrid(8, snap_start_cell, cell)
+    snap_start_cell := ""
+  }
 }
 
 resizewin(dir, coeff) {
@@ -110,8 +132,8 @@ resizewin(dir, coeff) {
 }
 
 ; Snap bindings
-for key, dir in snap_dirs {
-  bind(MOD . key, "snapwin", dir)
+for key, cell in snap_cells {
+  bind(MOD . key, "snapwin", cell)
 }
 
 ; Size bindings
