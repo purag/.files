@@ -40,7 +40,7 @@ git_prompt () {
 
 show_remote_host () {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "${__magenta}on @$(hostname) "
+    echo "${__magenta}on $(hostname) "
   fi
 }
 
