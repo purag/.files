@@ -8,68 +8,40 @@ __red="\e[0;31m"
 __green="\e[0;32m"
 __blue="\e[0;34m"
 __magenta="\e[0;35m"
+__orange="\e[0;36m"
 
 source ~/.vim/plugged/fzf/shell/completion.bash
 source ~/.vim/plugged/fzf/shell/key-bindings.bash
 
 git_prompt () {
   if git branch &> /dev/null; then
-    local branchinfo=$(git branch -vv | grep "^*")
-    local loc_branch=$(cut -d" " -f2 <<< $branchinfo)
-    local rem_branch=$(cut -d" " -f4 <<< $branchinfo | cut -d[ -f2 | cut -d: -f1)
+    local branch=$(git rev-parse --abbrev-ref HEAD)
+    local changed=$(git diff --shortstat | cut -d" " -f2)
+    local staged=$(git diff --shortstat --cached | cut -d" " -f2)
 
-    local loc_hash=$(git rev-parse @ 2> /dev/null)
-    local rem_hash=$(git rev-parse @{u} 2> /dev/null)
-    local base_hash=$(git merge-base @ @{u} 2> /dev/null)
-
-    # up-to-date
-    if [[ -z $rem_hash ]] || [ $loc_hash = $rem_hash ]; then
-      # nothing to commit
-      if [[ -z $(git status -s) ]]; then
-        echo "$__green[$loc_branch]"
-      # but uncommitted local changes
-      else
-        echo "$__red[$loc_branch]"
-      fi
-
-    # need to pull
-    elif [ $loc_hash = $base_hash ]; then
-      echo "$__red[$loc_branch $__green<- $rem_branch]"
-    
-    # need to push
-    elif [ $rem_hash = $base_hash ]; then
-      echo "$__green[$loc_branch $__red-> $rem_branch]"
-    
-    # diverged
+    echo -n "${__reset}with "
+    if [[ -n "$changed" ]] && [[ -n "$staged" ]]; then
+      echo -n "$__red$changed changed, $__green$staged staged"
+    elif [[ -n "$changed" ]]; then
+      echo -n "$__red$changed changed"
+    elif [[ -n "$staged" ]]; then
+      echo -n "$__green$staged staged"
     else
-      echo "$__red[$loc_branch -><- $rem_branch]"
+      echo -n "${__green}nothing to do"
     fi
-  fi
-}
 
-show_input_prompt () {
-  
-  if [ "$EUID" -eq 0 ]; then
-    echo "# ";
-  else
-    echo "$ ";
-  fi;
+    echo " ${__reset}on $branch"
+  fi
 }
 
 show_remote_host () {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "@$(hostname)";
-  fi;
+    echo "${__magenta}on @$(hostname) "
+  fi
 }
 
 my_prompt () {
-#   local status=$?
-#   if [ $status != 0 ]; then
-#     local __inputcolor="$__red"
-#   else
-  local __inputcolor="$__reset"
-#   fi
-  PS1="$__gray\t $__magenta[\u$(show_remote_host)$__reset : $__blue\w] $(git_prompt)$__inputcolor\n$(show_input_prompt)$__reset"
+  PS1="$__gray\t $(show_remote_host)${__blue}in \w $(git_prompt)\n$__orange\u$__reset >"
 }
 
 PROMPT_COMMAND=my_prompt
