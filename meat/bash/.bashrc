@@ -9,6 +9,7 @@ __green="\e[0;32m"
 __blue="\e[0;34m"
 __magenta="\e[0;35m"
 __orange="\e[0;36m"
+__yellow="\e[0;33m"
 
 source ~/.vim/plugged/fzf/shell/completion.bash
 source ~/.vim/plugged/fzf/shell/key-bindings.bash
@@ -18,18 +19,21 @@ git_prompt () {
     local branch=$(git rev-parse --abbrev-ref HEAD)
     local changed=$(git diff --shortstat | cut -d" " -f2)
     local staged=$(git diff --shortstat --cached | cut -d" " -f2)
+    local untracked=$(git status --porcelain | grep "^??" | wc -l)
 
     echo -n "${__reset}with "
-    if [[ -n "$changed" ]] && [[ -n "$staged" ]]; then
-      echo -n "$__red$changed changed, $__orange$staged staged"
-    elif [[ -n "$changed" ]]; then
-      echo -n "$__red$changed changed"
-    elif [[ -n "$staged" ]]; then
-      echo -n "$__orange$staged staged"
-    else
-      echo -n "${__green}nothing to do"
+    if (( changed )); then
+      echo -n "$__yellow$changed changed"
     fi
-
+    if (( staged )); then
+      (( changed )) && echo -n ", "
+      echo -n "$__orange$staged staged"
+    fi
+    if (( untracked )); then
+      (( changed )) || (( staged )) && echo -n ", "
+      echo -n "$__red$untracked untracked"
+    fi
+ 
     echo " ${__reset}on $branch"
   fi
 }
