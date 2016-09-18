@@ -21,11 +21,11 @@ git_prompt () {
 
     echo -n "${__reset}with "
     if [[ -n "$changed" ]] && [[ -n "$staged" ]]; then
-      echo -n "$__red$changed changed, $__green$staged staged"
+      echo -n "$__red$changed changed, $__orange$staged staged"
     elif [[ -n "$changed" ]]; then
       echo -n "$__red$changed changed"
     elif [[ -n "$staged" ]]; then
-      echo -n "$__green$staged staged"
+      echo -n "$__orange$staged staged"
     else
       echo -n "${__green}nothing to do"
     fi
