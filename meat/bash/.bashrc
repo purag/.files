@@ -33,6 +33,9 @@ git_prompt () {
       (( changed )) || (( staged )) && echo -n ", "
       echo -n "$__red$untracked untracked"
     fi
+    if (( ! changed )) && (( ! staged )) && (( ! untracked )); then
+      echo -n "${__green}nothing to do"
+    fi
  
     echo " ${__reset}on $branch"
   fi
