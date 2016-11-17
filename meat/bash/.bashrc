@@ -1,6 +1,8 @@
 alias ls='ls -GF'
 alias ll='ls -la'
 alias grep='grep --color=auto'
+# make tmux great again
+alias tmux="TERM=screen-256color-bce tmux"
 
 __reset="\e[0m"
 __gray="\e[1;30m"
