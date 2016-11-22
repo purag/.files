@@ -21,3 +21,9 @@
         # log
         l  = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short
         lg = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short --graph
+
+        # checkout
+        to = checkout
+
+        # catchup
+        cu = !git checkout gh-pages && git rebase master && git push  && git checkout master
