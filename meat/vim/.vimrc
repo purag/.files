@@ -209,6 +209,9 @@ set t_vb=
 " enable modelines
 set modeline
 
+" enable wildmenu for smart tab complete
+set wildmenu
+
 " }}}
 
 " +--------------+
