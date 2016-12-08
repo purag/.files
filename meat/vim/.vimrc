@@ -101,6 +101,9 @@ Plug 'vim-airline/vim-airline-themes' " {{{
 Plug 'mhinz/vim-startify' " {{{
 " }}}
 
+Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
+" }}}
+
 call plug#end()
 
 command! PI PlugInstall
