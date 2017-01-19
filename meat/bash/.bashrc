@@ -4,6 +4,8 @@ alias grep='grep --color=auto'
 # make tmux great again
 alias tmux="TERM=screen-256color-bce tmux"
 
+export EDITOR=vim
+
 __reset="\e[0m"
 __gray="\e[1;30m"
 __red="\e[0;31m"
