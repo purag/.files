@@ -1,11 +1,14 @@
+# smarter ls & grep
 alias ls='ls -GF'
 alias ll='ls -la'
 alias grep='grep --color=auto'
 # make tmux great again
 alias tmux="TERM=screen-256color-bce tmux"
 
+# default editor = vim
 export EDITOR=vim
 
+# colors
 __reset="\e[0m"
 __gray="\e[1;30m"
 __red="\e[0;31m"
@@ -15,8 +18,12 @@ __magenta="\e[0;35m"
 __orange="\e[0;36m"
 __yellow="\e[0;33m"
 
+# source fzf bash helpers
 source ~/.vim/plugged/fzf/shell/completion.bash
 source ~/.vim/plugged/fzf/shell/key-bindings.bash
+
+# source any local configs
+[ -f ~/.bash_local ] && source ~/.bash_local
 
 git_prompt () {
   if git branch &> /dev/null; then
