@@ -143,7 +143,7 @@ autocmd FileType cpp set softtabstop=4
 
 " 4-space indents in java files
 autocmd FileType java set sw=4
-autocmd FileType java set softtabstop=8
+autocmd FileType java set softtabstop=4
 
 " }}}
 
