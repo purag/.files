@@ -104,6 +104,9 @@ Plug 'mhinz/vim-startify' " {{{
 Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
 " }}}
 
+Plug 'mhartington/oceanic-next' " {{{
+" }}}
+
 call plug#end()
 
 command! PI PlugInstall
@@ -156,7 +159,7 @@ set cursorline
 set nu
 
 " Set the color scheme to desert
-colors monokai
+colors OceanicNext
 
 " }}}
 
