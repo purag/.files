@@ -134,9 +134,11 @@ autocmd FileType asm set noexpandtab
 autocmd FileType asm set sw=8
 autocmd FileType asm set softtabstop=8
 
-" 8-space indents in c++ files
-autocmd FileType cpp set sw=8
-autocmd FileType cpp set softtabstop=8
+" 4-space indents in c/c++ files
+autocmd FileType c set sw=4
+autocmd FileType c set softtabstop=4
+autocmd FileType cpp set sw=4
+autocmd FileType cpp set softtabstop=4
 
 " 4-space indents in java files
 autocmd FileType java set sw=4
