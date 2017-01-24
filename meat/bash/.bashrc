@@ -27,6 +27,11 @@ source ~/.vim/plugged/fzf/shell/key-bindings.bash
 
 git_prompt () {
   if git branch &> /dev/null; then
+    if ! git log &> /dev/null; then
+      echo -n "${__reset}with ${__green}a fresh new repo initialized"
+      return
+    fi
+
     local branch=$(git rev-parse --abbrev-ref HEAD)
     local changed=$(git diff --shortstat | cut -d" " -f2)
     local staged=$(git diff --shortstat --cached | cut -d" " -f2)
