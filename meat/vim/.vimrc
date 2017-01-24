@@ -58,6 +58,7 @@ endif
 
 Plug 'jiangmiao/auto-pairs' " {{{
   let g:AutoPairsMultilineClose = 0
+  let g:AutoPairsFlyMode = 1
 " }}}
 
 Plug 'terryma/vim-multiple-cursors' " {{{
@@ -162,6 +163,9 @@ set nu
 
 " Set the color scheme to desert
 colors OceanicNext
+
+" 256 colors
+set t_Co=256
 
 " }}}
 
