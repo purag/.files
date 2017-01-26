@@ -83,6 +83,7 @@ Plug 'tpope/vim-commentary' " {{{
 
 Plug 'vim-airline/vim-airline' " {{{
   let g:airline_powerline_fonts = 1
+  set encoding=utf-8
   set laststatus=2
 " }}}
 
