@@ -37,7 +37,8 @@ Plug 'airblade/vim-gitgutter' " {{{
 Plug 'Yggdroot/indentline' " {{{
   set conceallevel=1
   let g:indentLine_conceallevel = 1
-  let g:indentLine_color_term = 0
+  let g:indentLine_color_term = 237
+  let g:indentLine_char = '│'
 " }}}
 
 Plug 'haya14busa/incsearch.vim' " {{{
