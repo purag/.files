@@ -14,6 +14,9 @@ ALTMOD := "+!"
 
 INCREMENT := 50
 
+; Disable default bindings
+!space :: return
+
 ; Snap bindings
 snap_cells := { "a":  0
               , "s":  1
