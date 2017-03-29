@@ -10,9 +10,15 @@ __reset="\033[0m"
 cd ~/.files
 
 function trace_exec () {
+  silent=0
+  if [ "$1" = "-s" ]; then
+    silent=1
+    shift
+  fi
+
   echo -e "  $__green$1$__reset"
   shift
-  echo -e "    $__gray$@$__reset" | tee log/install
+  (( ! $silent )) && echo -e "    $__gray$@$__reset" | tee log/install
   "$@" 2>&1 | sed "s/^/    /" | tee log/install
   echo
 }
@@ -35,6 +41,15 @@ case "$(uname)" in
 ;;
 
 "Linux")
+    trace_exec "Cloning linuxbrew/brew..." \
+      git clone https://github.com/linuxbrew/brew ~/.linuxbrew
+
+    if [ ! -f ~/.bash_local ] || ! grep -q "linuxbrew" ~/.bash_local; then
+      trace_exec "Setting up linuxbrew..." \
+        sed -i "$ a \
+          source ~/.linuxbrew.bash" ~/.bash_local
+    fi
+
     # https://github.com/dylanaraps/neofetch/blob/master/neofetch
     distro="$(awk -F 'NAME=' '/^NAME=/ {printf $2}' /etc/*ease)"
     distro="${distro//\"}"
