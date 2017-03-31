@@ -110,6 +110,9 @@ Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
 Plug 'mhartington/oceanic-next' " {{{
 " }}}
 
+Plug 'w0rp/ale' " {{{
+" }}}
+
 call plug#end()
 
 command! PI PlugInstall
