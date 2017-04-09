@@ -14,9 +14,6 @@ ALTMOD := "+!"
 
 INCREMENT := 50
 
-; Disable default bindings
-!space :: return
-
 ; Snap bindings
 snap_cells := { "a":  0
               , "s":  1
@@ -109,10 +106,16 @@ snapwin(cell) {
   global snap_start_cell
   if (snap_start_cell = "") {
     snap_start_cell := cell
+    settimer, cancel, 500
   } else {
     PositionInGrid(8, snap_start_cell, cell)
     snap_start_cell := ""
   }
+  return
+
+  cancel:
+  snap_start_cell := ""
+  return
 }
 
 resizewin(dir, coeff) {
