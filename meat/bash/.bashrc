@@ -22,9 +22,6 @@ __yellow="\e[0;33m"
 source ~/.vim/plugged/fzf/shell/completion.bash
 source ~/.vim/plugged/fzf/shell/key-bindings.bash
 
-# source any local configs
-[ -f ~/.bash_local ] && source ~/.bash_local
-
 git_prompt () {
   if git branch &> /dev/null; then
     if ! git log &> /dev/null; then
@@ -68,3 +65,6 @@ my_prompt () {
 }
 
 PROMPT_COMMAND=my_prompt
+
+# source any local configs
+[ -f ~/.bash_local ] && source ~/.bash_local
