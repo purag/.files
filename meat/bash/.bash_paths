@@ -1,0 +1,10 @@
+#!/bin/bash
+
+add_path () {
+  # https://superuser.com/a/39995
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1"* ]]; then
+    PATH="$PATH:$1"
+  fi
+}
+
+add_path ~/scripts

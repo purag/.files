@@ -66,5 +66,8 @@ my_prompt () {
 
 PROMPT_COMMAND=my_prompt
 
+# source any local $PATH additions
+source ~/.bash_paths
+
 # source any local configs
 [ -f ~/.bash_local ] && source ~/.bash_local
