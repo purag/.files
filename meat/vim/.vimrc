@@ -100,6 +100,9 @@ Plug 'vim-airline/vim-airline-themes' " {{{
 Plug 'mhinz/vim-startify' " {{{
 " }}}
 
+Plug 'vim-syntastic/syntastic' " {{{
+" }}}
+
 " Themes {{{
 
 Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
