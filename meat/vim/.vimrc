@@ -75,12 +75,6 @@ Plug 'junegunn/fzf.vim' " {{{
   nnoremap <leader>zg <esc>:GFiles<cr>
 " }}}
 
-Plug 'sickill/vim-monokai' " {{{
-" }}}
-
-Plug 'rakr/vim-two-firewatch' " {{{
-" }}}
-
 Plug 'tpope/vim-commentary' " {{{
 " }}}
 
@@ -106,13 +100,23 @@ Plug 'vim-airline/vim-airline-themes' " {{{
 Plug 'mhinz/vim-startify' " {{{
 " }}}
 
+" Themes {{{
+
 Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
+" }}}
+
+Plug 'sickill/vim-monokai' " {{{
+" }}}
+
+Plug 'rakr/vim-two-firewatch' " {{{
 " }}}
 
 Plug 'mhartington/oceanic-next' " {{{
 " }}}
 
 Plug 'vim-syntastic/syntastic' " {{{
+" }}}
+
 " }}}
 
 call plug#end()
