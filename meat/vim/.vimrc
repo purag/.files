@@ -65,7 +65,9 @@ Plug 'jiangmiao/auto-pairs' " {{{
 Plug 'terryma/vim-multiple-cursors' " {{{
 " }}}
 
-Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf', " {{{
+  \ { 'do': './install --bin' }
+" }}}
 
 Plug 'junegunn/fzf.vim' " {{{
   nnoremap <leader>zf <esc>:Files<cr>
@@ -108,6 +110,9 @@ Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
 " }}}
 
 Plug 'mhartington/oceanic-next' " {{{
+" }}}
+
+Plug 'vim-syntastic/syntastic' " {{{
 " }}}
 
 call plug#end()
