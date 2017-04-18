@@ -267,8 +267,8 @@ vnoremap <       <gv
 nnoremap  p       ]p
 
 " Fix undo
-inoremap <c-z>   <esc>ua
-noremap  <c-z>   u
+" inoremap <c-z>   <esc>ua
+" noremap  <c-z>   u
 
 " efficiency ftw
 inoremap jj      <esc>
