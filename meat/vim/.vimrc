@@ -79,6 +79,7 @@ Plug 'tpope/vim-commentary' " {{{
 " }}}
 
 Plug 'vim-airline/vim-airline' " {{{
+  let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
   set encoding=utf-8
   set laststatus=2
@@ -221,8 +222,8 @@ set tags=~/tags
 set mouse=a
 
 " scrolling settings
-set scrolloff=5
-set sidescrolloff=5
+set scrolloff=999
+set sidescrolloff=999
 
 " disable bells
 set noerrorbells
@@ -234,6 +235,9 @@ set modeline
 
 " enable wildmenu for smart tab complete
 set wildmenu
+
+" source any local configs
+silent! source ~/.vimrc_local
 
 " }}}
 
@@ -264,7 +268,7 @@ vnoremap >       >gv
 vnoremap <       <gv
 
 " Fix pasting
-nnoremap  p       ]p
+nnoremap  p      ]p
 
 " Fix undo
 " inoremap <c-z>   <esc>ua
