@@ -185,6 +185,9 @@ colors OceanicNext
 " 256 colors
 set t_Co=256
 
+" colorcolumn
+silent! set colorcolumn=80
+
 " }}}
 
 " +----------------+
