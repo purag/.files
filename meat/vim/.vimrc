@@ -104,6 +104,9 @@ Plug 'mhinz/vim-startify' " {{{
 Plug 'vim-syntastic/syntastic' " {{{
 " }}}
 
+Plug 'tpope/vim-surround' " {{{
+" }}}
+
 " Themes {{{
 
 Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
