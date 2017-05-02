@@ -228,8 +228,8 @@ set tags=~/tags
 set mouse=a
 
 " scrolling settings
-set scrolloff=999
-set sidescrolloff=999
+set scrolloff=10
+set sidescrolloff=10
 
 " disable bells
 set noerrorbells
