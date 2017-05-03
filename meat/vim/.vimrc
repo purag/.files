@@ -278,6 +278,12 @@ nnoremap ; :
 " clear highlights on redraw
 nnoremap <c-l> :nohl<cr><c-l>
 
+" copy/paste from system clipboard
+noremap <leader>y "+y
+noremap <leader>yy "+yy
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
 " }}}
 
 " +-------------+
