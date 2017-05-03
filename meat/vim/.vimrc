@@ -271,10 +271,6 @@ vnoremap < <gv
 " Fix pasting
 nnoremap p ]p
 
-" Fix undo
-" inoremap <c-z>   <esc>ua
-" noremap  <c-z>   u
-
 " efficiency ftw
 inoremap jj <esc>
 nnoremap ; :
