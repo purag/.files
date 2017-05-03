@@ -253,39 +253,34 @@ silent! source ~/.vimrc_local
 " {{{
 
 " save and close a buffer using ctrl+x
-inoremap <c-x>   <esc>:x<cr>
-noremap  <c-x>   :x<cr>
-
-" close a buffer using ctrl+w
-" inoremap <c-w>   <esc>:q<cr>
-" noremap  <c-w>   <esc>:q<cr>
-" The above bindings kinda suck.
+inoremap <c-x> <esc>:x<cr>
+noremap <c-x> :x<cr>
 
 " force-close a buffer
-inoremap <c-q>   <esc>:q!<cr>
-noremap  <c-q>   :q!<cr>
+inoremap <c-q> <esc>:q!<cr>
+noremap <c-q> :q!<cr>
 
 " create a new tab using ctrl+t
-noremap  <c-t>   <esc>:tabnew<cr>
+noremap <c-t> <esc>:tabnew<cr>
 
 " un-indent more easily
 inoremap <s-tab> <c-d>
-vnoremap >       >gv
-vnoremap <       <gv
+vnoremap > >gv
+vnoremap < <gv
 
 " Fix pasting
-nnoremap  p      ]p
+nnoremap p ]p
 
 " Fix undo
 " inoremap <c-z>   <esc>ua
 " noremap  <c-z>   u
 
 " efficiency ftw
-inoremap jj      <esc>
-nnoremap ;       :
+inoremap jj <esc>
+nnoremap ; :
 
 " clear highlights on redraw
-nnoremap <c-l>   :nohl<cr><c-l>
+nnoremap <c-l> :nohl<cr><c-l>
 
 " }}}
 
