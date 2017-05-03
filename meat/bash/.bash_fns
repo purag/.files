@@ -8,3 +8,12 @@ fcopy () {
   xclip -sel clip < "$1"
   echo "$(tput setaf 2)copied contents of $1 to clipboard"
 }
+
+notify () {
+  [[ -z "${@// }" ]] \
+    && echo "$(tput setaf 1)no command specified" \
+    && return 1
+  "$@" \
+    && pb push -d 1 <<< ""$@": succeeded!" \
+    || pb push -d 1 <<< ""$@": failed :("
+}
