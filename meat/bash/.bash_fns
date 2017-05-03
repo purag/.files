@@ -41,6 +41,8 @@ addhost () {
       && echo -n "Enter username: " && read user
   done
 
+  echo -n "Enter port (enter to ignore): " && read port
+
   echo -n "Enter SSH key filename (~/.ssh/${host}_id_rsa): " && read keyfile
   keyfile=${keyfile:-~/.ssh/${host}_id_rsa}
 
@@ -54,6 +56,23 @@ addhost () {
   echo "Host $host" >> ~/.ssh/config
   echo "  Hostname $hostname" >> ~/.ssh/config
   echo "  User $user" >> ~/.ssh/config
+  [ -z "$port" ] && echo "  Port $port" >> ~/.ssh/config
   echo "  IdentityFile $keyfile" >> ~/.ssh/config
+  echo "  PreferredAuthentications publickey" >> ~/.ssh/config
+  echo "  ForwardAgent yes" >> ~/.ssh/config
   echo "$(tput setaf 2)Done$(tput sgr 0)"
 }
+
+# TODO: remove a host config from ~/.ssh/config
+#   also remove whatever its identityfile is, or move it to
+#   ~/.ssh/.archive or something
+rmhost () {
+  [ -z "$1" ] \
+    && echo "$(tput setaf 1)Need host alias to remove" \
+    && return 1
+  ! grep -q "Host $1" ~/.ssh/config \
+    && echo "$(tput setaf 1)Host alias not found" \
+    && return 1
+}
+
+# TODO: if I archive in rmhost, make archived configs restorable
