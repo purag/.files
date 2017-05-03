@@ -20,3 +20,40 @@ notify () {
 }
 
 # TODO add pushbullet SMS function
+
+# Add an alias for a remote host and generate + copy an SSH key
+addhost () {
+  echo -n "Enter host alias: " && read host
+  while [ -z "$host" ]; do
+    echo "$(tput setaf 1)Host alias required.$(tput sgr 0)" \
+      && echo -n "Enter host alias: " && read host
+  done
+
+  echo -n "Enter hostname: " && read hostname
+  while [ -z "$hostname" ]; do
+    echo "$(tput setaf 1)Hostname required.$(tput sgr 0)" \
+      && echo -n "Enter hostname: " && read hostname
+  done
+
+  echo -n "Enter username: " && read user
+  while [ -z "$user" ]; do
+    echo "$(tput setaf 1)Username required.$(tput sgr 0)" \
+      && echo -n "Enter username: " && read user
+  done
+
+  echo -n "Enter SSH key filename (~/.ssh/${host}_id_rsa): " && read keyfile
+  keyfile=${keyfile:-~/.ssh/${host}_id_rsa}
+
+  ssh-keygen -t rsa -f "$keyfile"
+
+  echo "$(tput setaf 2)Copying SSH key to remote host...$(tput sgr 0)"
+  ssh-copy-id -i "$keyfile" $user@$host
+  echo "$(tput setaf 2)Done"
+
+  echo "$(tput setaf 2)Adding host configuration to ~/.ssh/config...$(tput sgr 0)"
+  echo "Host $host" >> ~/.ssh/config
+  echo "  Hostname $hostname" >> ~/.ssh/config
+  echo "  User $user" >> ~/.ssh/config
+  echo "  IdentityFile $keyfile" >> ~/.ssh/config
+  echo "$(tput setaf 2)Done$(tput sgr 0)"
+}
