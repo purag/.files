@@ -9,6 +9,7 @@ fcopy () {
   echo "$(tput setaf 2)copied contents of $1 to clipboard"
 }
 
+# run a task and notify me of its status on completion
 notify () {
   [[ -z "${@// }" ]] \
     && echo "$(tput setaf 1)no command specified" \
@@ -17,3 +18,5 @@ notify () {
     && pb push -d 1 <<< ""$@": succeeded!" \
     || pb push -d 1 <<< ""$@": failed :("
 }
+
+# TODO add pushbullet SMS function
