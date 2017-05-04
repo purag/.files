@@ -97,7 +97,7 @@ Plug 'vim-airline/vim-airline-themes' " {{{
   endfunction
   nnoremap <leader>at :call ToggleAirlineTheme()<cr>
 
-  exec 'AirlineTheme '.g:default_airline_theme
+  let g:airline_theme = g:default_airline_theme
 " }}}
 
 Plug 'mhinz/vim-startify' " {{{
