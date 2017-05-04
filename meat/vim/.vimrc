@@ -1,7 +1,7 @@
 " +-------------------------+
 " | .vimrc                  |
 " | Author: Purag Moumdjian |
-" | Date: 14 Jul 2016       |
+" | Date: 04 May 2017       |
 " +-------------------------+
 
 let mapleader = "\\"
@@ -79,7 +79,26 @@ Plug 'tpope/vim-commentary' " {{{
 " }}}
 
 Plug 'vim-airline/vim-airline' " {{{
+  " airline sections {{{
+  let g:airline#extensions#branch#symbol = ''
+  let g:airline#extensions#hunks#enabled = 0
+  let g:airline_section_b = '%{airline#extensions#branch#get_head()}' " git branch
+  " file path
+  let g:airline_section_c = '%f'
+  " filetype
+  let g:airline_section_x = '%{&ft}'
+  " c.<colnum>
+  let g:airline_section_y = 'c.%-3.c'
+  " <linenum> of <numlines>
+  let g:airline_section_z = '%4.l of %-4.L'
+  " <linenum/numlines>% of <numlines>
+  " let g:airline_section_y = '%P of %-4.L'
+  " <linenum>:<colnum>
+  " let g:airline_section_z = '%4.l:%-3.c'
+  " }}}
+
   let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#fnamemod = ':t'
   let g:airline_powerline_fonts = 1
   set encoding=utf-8
   set laststatus=2
