@@ -138,6 +138,10 @@ Plug 'pangloss/vim-javascript' " {{{
 Plug 'vim-syntastic/syntastic' " {{{
 " }}}
 
+Plug 'mbbill/undotree' " {{{
+  nnoremap <leader>u :UndotreeToggle<cr>
+" }}}
+
 " Themes {{{
 
 Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
