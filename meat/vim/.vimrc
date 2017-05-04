@@ -101,6 +101,7 @@ Plug 'vim-airline/vim-airline-themes' " {{{
 " }}}
 
 Plug 'mhinz/vim-startify' " {{{
+  nnoremap <leader>st :Startify<cr>
 " }}}
 
 Plug 'vim-syntastic/syntastic' " {{{
