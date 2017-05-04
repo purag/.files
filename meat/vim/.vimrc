@@ -86,16 +86,18 @@ Plug 'vim-airline/vim-airline' " {{{
 " }}}
 
 Plug 'vim-airline/vim-airline-themes' " {{{
+  let g:default_airline_theme = 'neodark'
+  let g:alt_airline_theme = 'raven'
   function! ToggleAirlineTheme()
-    if g:airline_theme == "raven"
-      AirlineTheme wombat
+    if g:airline_theme == g:alt_airline_theme
+      exec 'AirlineTheme '.g:default_airline_theme
     else
-      AirlineTheme raven
+      exec 'AirlineTheme '.g:alt_airline_theme
     endif
   endfunction
   nnoremap <leader>at :call ToggleAirlineTheme()<cr>
 
-  let g:airline_theme = 'wombat'
+  exec 'AirlineTheme '.g:default_airline_theme
 " }}}
 
 Plug 'mhinz/vim-startify' " {{{
@@ -121,7 +123,10 @@ Plug 'rakr/vim-two-firewatch' " {{{
 Plug 'mhartington/oceanic-next' " {{{
 " }}}
 
-Plug 'vim-syntastic/syntastic' " {{{
+Plug 'tyrannicaltoucan/vim-quantum' " {{{
+" }}}
+
+Plug 'KeitaNakamura/neodark.vim' " {{{
 " }}}
 
 " }}}
@@ -180,7 +185,7 @@ set cursorline
 set nu
 
 " Set the color scheme to desert
-colors OceanicNext
+colors neodark
 
 " 256 colors
 set t_Co=256
