@@ -213,6 +213,12 @@ silent! set colorcolumn=80
 " Make backspace work right.
 set backspace=2
 
+" TODO: softlines
+" nnoremap j gj
+" nnoremap k gk
+" imap <down> <esc>ja
+" imap <up> <esc>ka
+
 " auto-complete comments
 set fo+=r
 
