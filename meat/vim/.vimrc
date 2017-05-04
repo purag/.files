@@ -109,6 +109,15 @@ Plug 'vim-syntastic/syntastic' " {{{
 Plug 'tpope/vim-surround' " {{{
 " }}}
 
+Plug 'pangloss/vim-javascript' " {{{
+  let g:javascript_plugin_jsdoc = 1
+  " let g:javascript_conceal_function = "ƒ"
+  " let g:javascript_conceal_arrow_function = "⇒"
+" }}}
+
+Plug 'vim-syntastic/syntastic' " {{{
+" }}}
+
 " Themes {{{
 
 Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
