@@ -82,9 +82,10 @@ Plug 'vim-airline/vim-airline' " {{{
   " airline sections {{{
   let g:airline#extensions#branch#symbol = ''
   let g:airline#extensions#hunks#enabled = 0
-  let g:airline_section_b = '%{airline#extensions#branch#get_head()}' " git branch
-  " file path
-  let g:airline_section_c = '%f'
+  " git branch
+  let g:airline_section_b = '%{airline#extensions#branch#get_head()}'
+  " abbreviated file path
+  let g:airline_section_c = '%{pathshorten(expand("%"))}'
   " filetype
   let g:airline_section_x = '%{&ft}'
   " c.<colnum>
@@ -99,7 +100,7 @@ Plug 'vim-airline/vim-airline' " {{{
 
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#fnamemod = ':t'
-  let g:airline_powerline_fonts = 1
+  let g:airline_powerline_fonts = 0
   set encoding=utf-8
   set laststatus=2
 " }}}
@@ -107,13 +108,13 @@ Plug 'vim-airline/vim-airline' " {{{
 Plug 'vim-airline/vim-airline-themes' " {{{
   let g:default_airline_theme = 'neodark'
   let g:alt_airline_theme = 'raven'
-  function! ToggleAirlineTheme()
+  function! ToggleAirlineTheme() " {{{
     if g:airline_theme == g:alt_airline_theme
       exec 'AirlineTheme '.g:default_airline_theme
     else
       exec 'AirlineTheme '.g:alt_airline_theme
     endif
-  endfunction
+  endfunction " }}}
   nnoremap <leader>at :call ToggleAirlineTheme()<cr>
 
   let g:airline_theme = g:default_airline_theme
