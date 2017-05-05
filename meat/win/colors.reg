@@ -1,0 +1,22 @@
+Windows Registry Editor Version 5.00
+
+; Automatically generated from meat/core/.termcolors
+
+[HKEY_CURRENT_USER\Console]
+"ColorTable00"=dword:002C251A
+"ColorTable01"=dword:00CA8D4F
+"ColorTable02"=dword:0049C181
+"ColorTable03"=dword:00255EF0
+"ColorTable04"=dword:00261EE3
+"ColorTable05"=dword:005F3BEF
+"ColorTable06"=dword:0033B1FC
+"ColorTable07"=dword:00FFFFFF
+"ColorTable08"=dword:004A433A
+"ColorTable09"=dword:00AD6712
+"ColorTable10"=dword:00459451
+"ColorTable11"=dword:002947C0
+"ColorTable12"=dword:00211DA2
+"ColorTable13"=dword:004426BB
+"ColorTable14"=dword:001783D2
+"ColorTable15"=dword:00A1998C
+"ScreenColors"=dword:00000007
