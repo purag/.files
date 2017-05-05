@@ -56,7 +56,7 @@ addhost () {
   echo "Host $host" >> ~/.ssh/config
   echo "  Hostname $hostname" >> ~/.ssh/config
   echo "  User $user" >> ~/.ssh/config
-  [ -z "$port" ] && echo "  Port $port" >> ~/.ssh/config
+  [ -n "$port" ] && echo "  Port $port" >> ~/.ssh/config
   echo "  IdentityFile $keyfile" >> ~/.ssh/config
   echo "  PreferredAuthentications publickey" >> ~/.ssh/config
   echo "  ForwardAgent yes" >> ~/.ssh/config
