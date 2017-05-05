@@ -161,6 +161,9 @@ Plug 'tyrannicaltoucan/vim-quantum' " {{{
 " }}}
 
 Plug 'KeitaNakamura/neodark.vim' " {{{
+  let g:neodark#use_256color = 1
+  let g:neodark#solid_vertsplit = 1
+  let g:neodark#terminal_transparent = 1
 " }}}
 
 " }}}
@@ -224,6 +227,7 @@ set t_ut=
 
 " Set the color scheme
 colors neodark
+set bg=dark
 
 " colorcolumn
 silent! set colorcolumn=80
