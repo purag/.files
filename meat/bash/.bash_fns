@@ -5,7 +5,11 @@ fcopy () {
   [ ! -f "$1" ] \
     && echo "$(tput setaf 1)$1 is not a valid file" \
     && return 1
-  xclip -sel clip < "$1"
+  if grep -q Microsoft /proc/version; then
+    cat "$1" | clip.exe
+  else
+    xclip -sel clip < "$1"
+  fi
   echo "$(tput setaf 2)copied contents of $1 to clipboard"
 }
 
