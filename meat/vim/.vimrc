@@ -218,11 +218,12 @@ set cursorline
 " Show line numbers
 set nu
 
-" Set the color scheme to desert
-colors neodark
-
 " 256 colors
 set t_Co=256
+set t_ut=
+
+" Set the color scheme
+colors neodark
 
 " colorcolumn
 silent! set colorcolumn=80
