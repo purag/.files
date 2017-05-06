@@ -305,3 +305,6 @@ function buildhint (msg, win) {
 }
 
 Phoenix.notify("Configuration loaded.");
+
+// link this file in ~ if we're on macos
+// purag/.files!darwin-link

@@ -340,3 +340,6 @@ nnoremap <leader>P "+P
 " | FOLDING FTW |
 " +-------------+
 " vim: syntax=vim foldmethod=marker foldlevel=0
+
+" link this file in ~
+" purag/.files!link

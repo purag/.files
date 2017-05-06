@@ -2,7 +2,7 @@
 	name = Purag Moumdjian
 	email = purmou@gmail.com
 [core]
-	excludesfile = ~/gitignore
+	excludesfile = ~/.files/meat/git/gitignore
 [push]
 	default = upstream
 [rebase]
@@ -27,3 +27,6 @@
 
         # catchup
         cu = !git checkout gh-pages && git rebase master && git push  && git checkout master
+
+# link this file in ~
+# purag/.files!link
