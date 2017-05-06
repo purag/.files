@@ -95,3 +95,18 @@ wincolors () {
   done < ~/.files/meat/core/.termcolors
   echo "\"ScreenColors\"=dword:00000007"
 }
+
+# Remove all symlinks from a directory (default: cwd)
+rmlinks () {
+  local dir=${1:-$(pwd)}
+  local links=$(find $dir -maxdepth 1 -type l)
+  [ -z "$links" ] \
+    && echo "$(tput setaf 1)no symlinks found in $dir$(tput sgr 0)" \
+    && return 1
+  echo "$links"
+  echo -n "are you sure you want to remove these symlinks? [yY] " && read confirm
+  [[ $confirm =~ [yY] ]] \
+    && rm $links \
+    && echo "$(tput setaf 2)removed symlinks$(tput sgr 0)" \
+    || echo "$(tput setaf 1)exiting$(tput sgr 0)"
+}
