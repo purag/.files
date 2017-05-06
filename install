@@ -42,7 +42,7 @@ case "$(uname)" in
 
 "Linux")
     trace_exec "Cloning linuxbrew/brew..." \
-      git clone https://github.com/linuxbrew/brew ~/.linuxbrew
+      git clone https://github.com/linuxbrew/brew.git ~/.linuxbrew
 
     if [ ! -f ~/.bash_local ] || ! grep -q "linuxbrew" ~/.bash_local; then
       trace_exec "Setting up linuxbrew..." \
