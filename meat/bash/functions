@@ -84,7 +84,7 @@ rmhost () {
 # Output the contents of a .reg file to set terminal colors in Windows
 wincolors () {
   echo "Windows Registry Editor Version 5.00"
-  echo "; Automatically generated from meat/core/.termcolors"
+  echo "; Automatically generated from meat/core/p13n/colors"
   echo ""
   echo "[HKEY_CURRENT_USER\Console]"
   local i=0
@@ -92,7 +92,7 @@ wincolors () {
     printf "\"ColorTable%02d\"=dword:00" $i
     echo "${color:5:2}${color:3:2}${color:1:2}"
     (( i++ ))
-  done < ~/.files/meat/core/.termcolors
+  done < ~/.files/meat/core/p13n/colors
   echo "\"ScreenColors\"=dword:00000007"
 }
 

@@ -1,5 +1,5 @@
 Windows Registry Editor Version 5.00
-; Automatically generated from meat/core/.termcolors
+; Automatically generated from meat/core/p13n/colors
 
 [HKEY_CURRENT_USER\Console]
 "ColorTable00"=dword:002C251A
