@@ -41,7 +41,7 @@ case "$(uname)" in
 
     if [ ! -f ~/.bash_local ] || ! grep -q "linuxbrew" ~/.bash_local; then
       trace_exec "Setting up linuxbrew..." \
-        bash -c "echo 'source ~/.files/meat/bash/linuxbrew.bash' >> ~/.bash_local"
+        bash -c "echo 'source ~/.files/meat/bash/linuxbrew' >> ~/.bash_local"
     fi
 
     # https://github.com/dylanaraps/neofetch/blob/master/neofetch

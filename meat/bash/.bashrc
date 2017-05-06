@@ -67,10 +67,10 @@ my_prompt () {
 PROMPT_COMMAND=my_prompt
 
 # source any local $PATH additions
-source ~/.files/meat/bash/.bash_paths
+source ~/.files/meat/bash/paths
 
 # source custom bash functions
-source ~/.files/meat/bash/.bash_fns
+source ~/.files/meat/bash/functions
 
 # source any local configs
 [ -f ~/.bash_local ] && source ~/.bash_local
