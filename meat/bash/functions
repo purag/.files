@@ -53,7 +53,7 @@ addhost () {
   ssh-keygen -t rsa -f "$keyfile"
 
   echo "$(tput setaf 2)Copying SSH key to remote host...$(tput sgr 0)"
-  ssh-copy-id -i "$keyfile" $user@$host
+  ssh-copy-id -i "$keyfile" "$user@$hostname" -p "${port:-22}"
   echo "$(tput setaf 2)Done"
 
   echo "$(tput setaf 2)Adding host configuration to ~/.ssh/config...$(tput sgr 0)"
