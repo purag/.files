@@ -1,0 +1,28 @@
+colors:
+  black:
+    normal: "#1A252C"
+    bold: "#3A434A"
+  blue:
+    normal: "#4F8DCA"
+    bold: "#1267AD"
+  green:
+    normal: "#81C149"
+    bold: "#519445"
+  orange:
+    normal: "#F05E25"
+    bold: "#C04729"
+  red:
+    normal: "#E31E26"
+    bold: "#A21D21"
+  violet:
+    normal: "#EF3B5F"
+    bold: "#BB2644"
+  yellow:
+    normal: "#FCB133"
+    bold: "#D28317"
+  white:
+    normal: "#FFFFFF"
+    bold: "#8C99A1"
+  codes:
+    bg: 0
+    fg: 7
