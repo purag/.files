@@ -1,4 +1,6 @@
-patchelf
-fzf
-python
-weechat
+tap caskroom/cask
+install python
+install node
+install fzf
+install weechat
+install keybase
