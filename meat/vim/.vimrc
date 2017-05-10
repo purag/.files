@@ -323,7 +323,8 @@ nnoremap p ]p
 
 " efficiency ftw
 inoremap jj <esc>
-nnoremap ; :
+noremap ; :
+noremap : ;
 
 " clear highlights on redraw
 nnoremap <c-l> :nohl<cr><c-l>
