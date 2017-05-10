@@ -13,11 +13,7 @@ let mapleader = "\\"
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'metakirby5/codi.vim' " {{{
-" }}}
-
-Plug 'junegunn/vim-peekaboo' " {{{
-" }}}
+" Workflow {{{
 
 Plug 'tpope/vim-fugitive' " {{{
   nmap <leader>gb :Gblame<cr>
@@ -34,36 +30,18 @@ Plug 'airblade/vim-gitgutter' " {{{
   nmap <leader>g[ <Plug>GitGutterPrevHunk
 " }}}
 
-Plug 'Yggdroot/indentline' " {{{
-  set conceallevel=1
-  let g:indentLine_conceallevel = 1
-  let g:indentLine_color_term = 239
-  let g:indentLine_char = '│'
-" }}}
-
-Plug 'haya14busa/incsearch.vim' " {{{
-" }}}
-
-Plug 'osyo-manga/vim-over' " {{{
-  nnoremap <leader>s <esc>:OverCommandLine<cr>%s/
-  vnoremap <leader>s <esc>gv:OverCommandLine<cr>s/
-" }}}
-
-Plug 'sheerun/vim-polyglot' " {{{
-" }}}
-
 if (version >= 704)
   Plug 'ludovicchabant/vim-gutentags' " {{{
   " }}}
 endif
 
-Plug 'jiangmiao/auto-pairs' " {{{
-  let g:AutoPairsMultilineClose = 0
-  let g:AutoPairsFlyMode = 1
+Plug 'mbbill/undotree' " {{{
+  nnoremap <leader>u :UndotreeToggle<cr>
 " }}}
 
-Plug 'terryma/vim-multiple-cursors' " {{{
 " }}}
+
+" File Management {{{
 
 Plug 'junegunn/fzf', " {{{
   \ { 'do': './install --bin' }
@@ -75,7 +53,61 @@ Plug 'junegunn/fzf.vim' " {{{
   nnoremap <leader>zg <esc>:GFiles<cr>
 " }}}
 
+" }}}
+
+" Search & Replace {{{
+
+Plug 'terryma/vim-multiple-cursors' " {{{
+" }}}
+
+Plug 'haya14busa/incsearch.vim' " {{{
+" }}}
+
+Plug 'osyo-manga/vim-over' " {{{
+  nnoremap <leader>s <esc>:OverCommandLine<cr>%s/
+  vnoremap <leader>s <esc>gv:OverCommandLine<cr>s/
+" }}}
+
+" }}}
+
+" Syntax {{{
+
 Plug 'tpope/vim-commentary' " {{{
+" }}}
+
+Plug 'sheerun/vim-polyglot' " {{{
+" }}}
+
+Plug 'jiangmiao/auto-pairs' " {{{
+  let g:AutoPairsMultilineClose = 0
+  let g:AutoPairsFlyMode = 1
+" }}}
+
+Plug 'vim-syntastic/syntastic' " {{{
+" }}}
+
+Plug 'tpope/vim-surround' " {{{
+" }}}
+
+Plug 'pangloss/vim-javascript' " {{{
+  let g:javascript_plugin_jsdoc = 1
+  " let g:javascript_conceal_function = "ƒ"
+  " let g:javascript_conceal_arrow_function = "⇒"
+" }}}
+
+Plug 'Yggdroot/indentline' " {{{
+  set conceallevel=1
+  let g:indentLine_conceallevel = 1
+  let g:indentLine_color_term = 239
+  let g:indentLine_char = '│'
+" }}}
+
+" }}}
+
+" Interface {{{
+
+Plug 'mhinz/vim-startify' " {{{
+  nnoremap <leader>st :Startify<cr>
 " }}}
 
 Plug 'vim-airline/vim-airline' " {{{
@@ -120,27 +152,13 @@ Plug 'vim-airline/vim-airline-themes' " {{{
   let g:airline_theme = g:default_airline_theme
 " }}}
 
-Plug 'mhinz/vim-startify' " {{{
-  nnoremap <leader>st :Startify<cr>
 " }}}
 
-Plug 'vim-syntastic/syntastic' " {{{
+" Miscellaneous " {{{
+
+Plug 'metakirby5/codi.vim' " {{{
 " }}}
 
-Plug 'tpope/vim-surround' " {{{
-" }}}
-
-Plug 'pangloss/vim-javascript' " {{{
-  let g:javascript_plugin_jsdoc = 1
-  " let g:javascript_conceal_function = "ƒ"
-  " let g:javascript_conceal_arrow_function = "⇒"
-" }}}
-
-Plug 'vim-syntastic/syntastic' " {{{
-" }}}
-
-Plug 'mbbill/undotree' " {{{
-  nnoremap <leader>u :UndotreeToggle<cr>
 " }}}
 
 " Themes {{{
