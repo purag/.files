@@ -161,6 +161,13 @@ Plug 'metakirby5/codi.vim' " {{{
 
 " }}}
 
+" Motion {{{
+
+Plug 'easymotion/vim-easymotion' " {{{
+" }}}
+
+" }}}
+
 " Themes {{{
 
 Plug 'oguzbilgic/sexy-railscasts-theme' " {{{
