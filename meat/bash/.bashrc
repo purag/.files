@@ -49,7 +49,7 @@ git_prompt () {
     if (( ! changed )) && (( ! staged )) && (( ! untracked )); then
       echo -n "${__green}nothing to do"
     fi
- 
+
     echo " ${__reset}on $branch"
   fi
 }
@@ -60,8 +60,10 @@ show_remote_host () {
   fi
 }
 
+OFFSET=$(tput cup "$LINES")
+
 my_prompt () {
-  PS1="$__gray\t $(show_remote_host)${__blue}in \w $(git_prompt)\n$__orange\u$__reset › "
+  PS1="$OFFSET$__gray\t $(show_remote_host)${__blue}in \w $(git_prompt)\n$__orange\u$__reset › "
 }
 
 PROMPT_COMMAND=my_prompt
