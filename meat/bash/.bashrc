@@ -1,5 +1,5 @@
 # smarter ls & grep
-alias ls='ls -GF'
+alias ls='ls -GF --color=auto'
 alias ll='ls -la'
 alias grep='grep --color=auto'
 # make tmux great again
