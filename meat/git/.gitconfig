@@ -2,7 +2,7 @@
   name = Purag Moumdjian
   email = purmou@gmail.com
 [core]
-  excludesfile = ~/.files/meat/git/gitignore
+  excludesfile = ~/.files/meat/git/ignore
 [push]
   default = upstream
 [rebase]
