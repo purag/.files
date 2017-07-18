@@ -60,6 +60,9 @@ Plug 'junegunn/fzf.vim' " {{{
 Plug 'terryma/vim-multiple-cursors' " {{{
 " }}}
 
+Plug 'terryma/vim-expand-region' " {{{
+" }}}
+
 Plug 'haya14busa/incsearch.vim' " {{{
 " }}}
 
