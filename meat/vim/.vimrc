@@ -141,7 +141,7 @@ Plug 'vim-airline/vim-airline' " {{{
 " }}}
 
 Plug 'vim-airline/vim-airline-themes' " {{{
-  let g:default_airline_theme = 'neodark'
+  let g:default_airline_theme = 'quantum'
   let g:alt_airline_theme = 'raven'
   function! ToggleAirlineTheme() " {{{
     if g:airline_theme == g:alt_airline_theme
