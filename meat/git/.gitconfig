@@ -16,10 +16,14 @@
   branch = auto
 [alias]
   # add
-  a  = add
+  a = add
+
+  # status
+  st = status
+  s = status
 
   # log
-  l  = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short
+  l = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short
   lg = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short --graph
 
   # checkout
