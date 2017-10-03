@@ -1,6 +1,7 @@
 [user]
   name = Purag Moumdjian
   email = purmou@gmail.com
+  signingkey = 8697342B
 [core]
   excludesfile = ~/.files/meat/git/ignore
 [push]
