@@ -2,6 +2,8 @@
   name = Purag Moumdjian
   email = purmou@gmail.com
   signingkey = 8697342B
+[commit]
+  gpgsign = true
 [core]
   excludesfile = ~/.files/meat/git/ignore
 [push]
@@ -24,8 +26,8 @@
   s = status
 
   # log
-  l = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short
-  lg = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(blue)%an %C(reset)%s%C(magenta)%d' --date=short --graph
+  l = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(reset)%s%C(magenta)%d %C(blue)[%an]' --date=short
+  lg = log --pretty=format:'%C(yellow)%h %C(green)%cd %C(reset)%s%C(magenta)%d %C(blue)[%an]' --date=short --graph
 
   # checkout
   to = checkout
