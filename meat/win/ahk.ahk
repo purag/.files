@@ -1,4 +1,4 @@
-PADDING := 10
+PADDING := 5
 F := "fill"
 N := "north"
 S := "south"
@@ -148,6 +148,18 @@ for key, dir in size_dirs {
   bind(MOD . key, "resizewin", dir, INCREMENT)
   bind(ALTMOD . key, "resizewin", opp, -INCREMENT)
 }
+
+; Hide/show window border
+toggleWinBorder() {
+  winget, style, Style, A
+  if (style & 0xc00000) {
+    winset, style, -0xc40000, A
+  } else {
+    winset, style, +0xc40000, A
+  }
+}
+
+bind(MOD . "Return", "toggleWinBorder")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Custom dynamic binding of hotkeys ;
