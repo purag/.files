@@ -1,7 +1,7 @@
 [user]
   name = Purag Moumdjian
-  email = purmou@gmail.com
-  signingkey = 8697342B
+  email = me@purag.me
+  signingkey = F2D46DF4
 [commit]
   gpgsign = true
 [core]
