@@ -1,3 +1,6 @@
+# better colors
+eval `dircolors ~/.files/meat/bash/dircolors/solarized-dark`
+
 # smarter ls & grep
 alias ls='ls -GF --color=auto'
 alias ll='ls -la'
