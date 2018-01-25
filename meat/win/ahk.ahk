@@ -177,3 +177,12 @@ bind(key, f, a*) {
     hotkeys[A_ThisHotkey].f(hotkeys[A_ThisHotkey].a*)
   return
 }
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; DUMB FIX FOR STEAM SCROLLING      ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+#IfWinActive Steam
+WheelDown::sendinput {down}{down}{down}
+WheelUp::sendinput {up}{up}{up}
+#IfWinActive
