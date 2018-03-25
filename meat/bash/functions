@@ -5,8 +5,10 @@ fcopy () {
   [ ! -f "$1" ] \
     && echo "$(tput setaf 1)$1 is not a valid file" \
     && return 1
-  if grep -q Microsoft /proc/version; then
+  if grep -q Microsoft /proc/version &> /dev/null; then
     cat "$1" | clip.exe
+  elif [[ "$(uname)" == "Darwin" ]]; then
+    pbcopy < "$1"
   else
     xclip -sel clip < "$1"
   fi
