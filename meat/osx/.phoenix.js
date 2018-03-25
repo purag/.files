@@ -9,7 +9,7 @@ var k = Key;
 var e = Event;
 
 var INCREMENT = 50;
-var PADDING = 10;
+var PADDING = 5;
 var MOD = ["shift", "cmd"];
 var ALTMOD = ["alt", "shift"];
 
@@ -30,15 +30,17 @@ var SW = "sw";
 var SE = "se";
 
 // KEYS + DIRECTION MAPPINGS
-var snap_dirs = {
-  "up":    F,
-  "left":  W,
-  "right": E,
-  "a":     NW,
-  "'":     NE,
-  "z":     SW,
-  "/":     SE
+var snap_cells = {
+  "a": 0,
+  "s": 1,
+  ";": 2,
+  "'": 3,
+  "z": 4,
+  "x": 5,
+  ".": 6,
+  "/": 7
 };
+var snap_start_cell = "";
 
 var size_dirs = {
   "h": W,
@@ -113,6 +115,34 @@ w.prototype.to = function (dir) {
   this.setFrame(frame);
 };
 
+w.prototype.positionInGrid = function (cells, start, end) {
+  var cols = ~~(cells / 2);
+  var screen = this.screen();
+  var cellwidth = (screen.width() - ((cols - 1) * PADDING)) / cols;
+  var cellheight = (screen.height() - PADDING) / 2;
+
+  var startc = start % cols,
+    startw = ~~(start / cols),
+    startl = screen.origin().x + (cellwidth + PADDING) * startc,
+    startt = screen.origin().y + (cellheight + PADDING) * startw,
+    startr = startl + cellwidth,
+    startb = startt + cellheight;
+
+  var endc = end % cols,
+    endw = ~~(end / cols),
+    endl = screen.origin().x + (cellwidth + PADDING) * endc,
+    endt = screen.origin().y + (cellheight + PADDING) * endw,
+    endr = endl + cellwidth,
+    endb = endt + cellheight;
+
+  var frame = this.frame();
+  frame.x = Math.min(startl, endl);
+  frame.y = Math.min(startt, endt);
+  frame.width = Math.max(startr, endr) - frame.x;
+  frame.height = Math.max(startb, endb) - frame.y;
+  this.setFrame(frame);
+}
+
 // Resize a window by coeff units in the given direction
 // coeff: -n shrinks by pixels units, +n grows by n pixels.
 w.prototype.resize = function (dir, coeff) {
@@ -137,10 +167,18 @@ w.prototype.toSpace = function (dir) {
 };
 
 // Snap bindings
-for (var key in snap_dirs) {
-  onif(curw, key, MOD, function (dir) {
-    curw().to(dir);
-  }.bind(null, snap_dirs[key]));
+for (var key in snap_cells) {
+  onif(curw, key, MOD, function (cell) {
+    if (snap_start_cell === "") {
+      snap_start_cell = cell;
+      setTimeout(function () {
+        snap_start_cell = "";
+      }, 500);
+    } else {
+      curw().positionInGrid(8, snap_start_cell, cell);
+      snap_start_cell = "";
+    }
+  }.bind(null, snap_cells[key]));
 }
 
 // Resize bindings
@@ -155,7 +193,7 @@ for (var key in size_dirs) {
 }
 
 for (var key in space_dirs) {
-  onif(curw, key, MOD, function (dir) {
+  onif(curw, key, ALTMOD, function (dir) {
     curw().toSpace(dir);
   }.bind(null, space_dirs[key]));
 }
