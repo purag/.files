@@ -186,3 +186,5 @@ bind(key, f, a*) {
 WheelDown::sendinput {down}{down}{down}
 WheelUp::sendinput {up}{up}{up}
 #IfWinActive
+
+#MaxHotkeysPerInterval 200
