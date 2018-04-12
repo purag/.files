@@ -10,3 +10,4 @@ add_path () {
 add_path ~/scripts
 add_path ~/datasci/anaconda2/bin
 add_path ~/.linuxbrew/opt/python/libexec/bin
+add_path ~/.npm/bin
