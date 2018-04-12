@@ -105,6 +105,9 @@ Plug 'Yggdroot/indentline' " {{{
   let g:indentLine_char = '│'
 " }}}
 
+Plug 'alxyzc/lc.vim' " {{{
+" }}}
+
 " }}}
 
 " Interface {{{
