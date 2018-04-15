@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# g - shorthand for git
+g () {
+  git "$@"
+}
+
 # copy the contents of file $1 to X clipboard
 fcopy () {
   [ ! -f "$1" ] \
