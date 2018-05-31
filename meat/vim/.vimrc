@@ -108,6 +108,9 @@ Plug 'Yggdroot/indentline' " {{{
 Plug 'alxyzc/lc.vim' " {{{
 " }}}
 
+Plug 'rhysd/vim-wasm' " {{{
+" }}}
+
 " }}}
 
 " Interface {{{
