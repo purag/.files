@@ -117,3 +117,10 @@ rmlinks () {
     && echo "$(tput setaf 2)removed symlinks$(tput sgr 0)" \
     || echo "$(tput setaf 1)exiting$(tput sgr 0)"
 }
+
+# enable 32-bit executables on WSL
+winbin () {
+  if grep -q Microsoft /proc/version &> /dev/null; then
+    sudo service binfmt-support start
+  fi
+}
