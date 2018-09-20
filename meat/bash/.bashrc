@@ -12,48 +12,48 @@ alias tmux="TERM=screen-256color-bce tmux"
 export EDITOR=vim
 
 # colors
-__reset="\[$(tput sgr 0)\]"
-__gray="\[$(tput setaf 8)\]"
-__red="\[$(tput setaf 1)\]"
-__green="\[$(tput setaf 2)\]"
-__blue="\[$(tput setaf 4)\]"
-__magenta="\[$(tput setaf 5)\]"
-__orange="\[$(tput setaf 6)\]"
-__yellow="\[$(tput setaf 3)\]"
+__reset="\001$(tput sgr 0)\002"
+__gray="\001$(tput setaf 8)\002"
+__red="\001$(tput setaf 1)\002"
+__green="\001$(tput setaf 2)\002"
+__blue="\001$(tput setaf 4)\002"
+__magenta="\001$(tput setaf 5)\002"
+__orange="\001$(tput setaf 6)\002"
+__yellow="\001$(tput setaf 3)\002"
 
 # source fzf bash helpers
 source ~/.vim/plugged/fzf/shell/completion.bash
 source ~/.vim/plugged/fzf/shell/key-bindings.bash
 
 git_prompt () {
-  if git branch &> /dev/null; then
-    if ! git log &> /dev/null; then
-      echo -n "${__reset}with ${__green}a fresh new repo initialized"
+  if command git branch &> /dev/null; then
+    if ! command git log &> /dev/null; then
+      echo -ne "${__reset}with ${__green}a fresh new repo initialized"
       return
     fi
 
-    local branch=$(git rev-parse --abbrev-ref HEAD)
-    local changed=$(git diff --shortstat | cut -d" " -f2)
-    local staged=$(git diff --shortstat --cached | cut -d" " -f2)
-    local untracked=$(git status --porcelain | grep "^??" | wc -l)
+    local branch=$(command git rev-parse --abbrev-ref HEAD)
+    local changed=$(command git diff --shortstat | cut -d" " -f2)
+    local staged=$(command git diff --shortstat --cached | cut -d" " -f2)
+    local untracked=$(command git status --porcelain | grep "^??" | wc -l)
 
-    echo -n "${__reset}with "
+    echo -ne "${__reset}with "
     if (( changed )); then
-      echo -n "$__yellow$changed changed"
+      echo -ne "$__yellow$changed changed"
     fi
     if (( staged )); then
       (( changed )) && echo -n ", "
-      echo -n "$__orange$staged staged"
+      echo -ne "$__orange$staged staged"
     fi
     if (( untracked )); then
       (( changed )) || (( staged )) && echo -n ", "
-      echo -n "$__red$untracked untracked"
+      echo -ne "$__red$untracked untracked"
     fi
     if (( ! changed )) && (( ! staged )) && (( ! untracked )); then
-      echo -n "${__green}nothing to do"
+      echo -ne "${__green}nothing to do"
     fi
 
-    echo " ${__reset}on $branch"
+    echo -e " ${__reset}on $branch"
   fi
 }
 
@@ -64,7 +64,7 @@ show_remote_host () {
 }
 
 my_prompt () {
-  PS1="$__gray\t $(show_remote_host)${__blue}in \w $(git_prompt)\n$__orange\u$__reset › "
+  PS1="\[$__gray\]\t $(show_remote_host)\[${__blue}\]in \w $(git_prompt)\n\[$__orange\]\u\[$__reset\] › "
 }
 
 PROMPT_COMMAND=my_prompt
