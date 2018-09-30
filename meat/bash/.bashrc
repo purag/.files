@@ -12,14 +12,14 @@ alias tmux="TERM=screen-256color-bce tmux"
 export EDITOR=vim
 
 # colors
-__reset="\001$(tput sgr 0)\002"
-__gray="\001$(tput setaf 8)\002"
-__red="\001$(tput setaf 1)\002"
-__green="\001$(tput setaf 2)\002"
-__blue="\001$(tput setaf 4)\002"
-__magenta="\001$(tput setaf 5)\002"
-__orange="\001$(tput setaf 6)\002"
-__yellow="\001$(tput setaf 3)\002"
+__reset="$(tput sgr 0)"
+__gray="$(tput setaf 8)"
+__red="$(tput setaf 1)"
+__green="$(tput setaf 2)"
+__blue="$(tput setaf 4)"
+__magenta="$(tput setaf 5)"
+__orange="$(tput setaf 6)"
+__yellow="$(tput setaf 3)"
 
 # source fzf bash helpers
 source ~/.vim/plugged/fzf/shell/completion.bash
