@@ -200,6 +200,9 @@ Plug 'KeitaNakamura/neodark.vim' " {{{
   let g:neodark#terminal_transparent = 1
 " }}}
 
+Plug 'haishanh/night-owl.vim' " {{{
+" }}}
+
 " }}}
 
 call plug#end()
@@ -265,6 +268,9 @@ set bg=dark
 
 " colorcolumn
 silent! set colorcolumn=80
+
+" set the search highlight colors: orange on dark gray background
+hi Search ctermbg=237 ctermfg=166
 
 " }}}
 
