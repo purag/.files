@@ -33,9 +33,9 @@ git_prompt () {
     fi
 
     local branch=$(command git rev-parse --abbrev-ref HEAD)
-    local changed=$(command git diff --shortstat | cut -d" " -f2)
-    local staged=$(command git diff --shortstat --cached | cut -d" " -f2)
-    local untracked=$(command git status --porcelain | grep "^??" | wc -l)
+    local changed=$(command git ls-files --modified | wc -l)
+    local staged=$(command git diff --cached --numstat | wc -l)
+    local untracked=$(command git ls-files --others --exclude-standard | wc -l)
 
     echo -ne "${__reset}with "
     if (( changed )); then
