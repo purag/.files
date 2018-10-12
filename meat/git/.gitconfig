@@ -4,6 +4,8 @@
   signingkey = F2D46DF4
 [commit]
   gpgsign = true
+[gpg]
+  program = gpg
 [core]
   excludesfile = ~/.files/meat/git/ignore
 [push]
