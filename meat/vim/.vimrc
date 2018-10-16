@@ -71,6 +71,9 @@ Plug 'osyo-manga/vim-over' " {{{
   vnoremap <leader>s <esc>gv:OverCommandLine<cr>s/
 " }}}
 
+Plug 'google/vim-searchindex' " {{{
+" }}}
+
 " }}}
 
 " Syntax {{{
