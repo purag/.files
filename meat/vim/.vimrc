@@ -51,6 +51,7 @@ Plug 'junegunn/fzf.vim' " {{{
   nnoremap <leader>zf <esc>:Files<cr>
   nnoremap <leader>zh <esc>:History<cr>
   nnoremap <leader>zg <esc>:GFiles<cr>
+  nnoremap <leader>z  <esc>:BLines<cr>
 " }}}
 
 " }}}
