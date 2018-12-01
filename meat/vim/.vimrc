@@ -115,6 +115,10 @@ Plug 'alxyzc/lc.vim' " {{{
 Plug 'rhysd/vim-wasm' " {{{
 " }}}
 
+Plug 'tpope/vim-sleuth' " {{{
+  let g:python_recommended_style = 0
+" }}}
+
 " }}}
 
 " Interface {{{
