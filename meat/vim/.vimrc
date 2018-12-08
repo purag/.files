@@ -211,6 +211,15 @@ Plug 'KeitaNakamura/neodark.vim' " {{{
 Plug 'haishanh/night-owl.vim' " {{{
 " }}}
 
+Plug 'connorholyday/vim-snazzy' " {{{
+" }}}
+
+Plug 'koirand/tokyo-metro.vim' " {{{
+" }}}
+
+Plug 'tjammer/blayu.vim' " {{{
+" }}}
+
 " }}}
 
 call plug#end()
