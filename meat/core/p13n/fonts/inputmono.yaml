@@ -1,5 +1,7 @@
 font:
-  name: "InputMonoCondensed Medium"
-  size:
-    px: 20
-    pt: 14
+  win:
+    name: "InputMonoNarrow Regular"
+    size: 20
+  linux:
+    name: "Input Mono Narrow Regular"
+    size: 11

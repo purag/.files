@@ -124,3 +124,23 @@ winbin () {
     sudo service binfmt-support start
   fi
 }
+
+# generate terminal color/font scheme and set it
+scheme () {
+  scheme=${1:-pur}
+  font=${2:-inputmono}
+  [ -d "$HOME/.files/meat/core/p13n/bin" ] || mkdir "$HOME/.files/meat/core/p13n/bin"
+  zenbu \
+    -f "$HOME/.files/meat/core/p13n/filters.py" \
+    -t "$HOME/.files/meat/core/p13n/templates/" \
+    -d "$HOME/.files/meat/core/p13n/bin/" \
+    "$HOME/.files/meat/core/p13n/colors/$scheme.yaml" \
+    "$HOME/.files/meat/core/p13n/fonts/$font.yaml"
+  if grep -q Microsoft /proc/version &> /dev/null; then
+    regedit.exe "$HOME/.files/meat/core/p13n/bin/win.reg"
+  elif [[ "$(uname)" == "Darwin" ]]; then
+    echo "${__red}Can't set colors on macOS yet! Exiting..."
+  else
+    . "$HOME/.files/meat/core/p13n/bin/gnome.sh"
+  fi
+}

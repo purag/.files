@@ -2,8 +2,8 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Console]
 ; FONTS ========================================================================
 ; font face
-"FaceName"="{{ font.name }}"
-"FontSize"=dword:{{ font.size.px | to_hex }}0000
+"FaceName"="{{ font.win.name }}"
+"FontSize"=dword:{{ font.win.size | to_hex }}0000
 ; COLORS =======================================================================
 ; black
 "ColorTable00"=dword:{{ colors.black.normal | to_win_color }}

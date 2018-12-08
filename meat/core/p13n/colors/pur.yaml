@@ -23,6 +23,18 @@ colors:
   white:
     normal: "#FFFFFF"
     bold: "#8C99A1"
+  bg:
+    normal: "#1A252C"
+    bold: "#3A434A"
+  fg:
+    normal: "#FFFFFF"
   codes:
+    red: 1
+    green: 2
+    yellow: 3
+    blue: 4
+    magenta: 5
+    orange: 6
+    gray: 8
     bg: 0
     fg: 7
