@@ -1,0 +1,40 @@
+colors:
+  black:
+    normal: "#073642"
+    bold: "#002B36"
+  blue:
+    normal: "#268BD2"
+    bold: "#839496"
+  green:
+    normal: "#859900"
+    bold: "#586E75"
+  orange:
+    normal: "#2AA198"
+    bold: "#93A1A1"
+  red:
+    normal: "#DC322F"
+    bold: "#CB4B16"
+  violet:
+    normal: "#D33682"
+    bold: "#6C71C4"
+  yellow:
+    normal: "#B58900"
+    bold: "#657B83"
+  white:
+    normal: "#EEE8D5"
+    bold: "#FD6FE3"
+  bg:
+    normal: "#002B36"
+    bold: "#93A1A1"
+  fg:
+    normal: "#839496"
+  codes:
+    red: 1
+    green: 2
+    yellow: 3
+    blue: 4
+    magenta: 5
+    orange: 9
+    gray: 10
+    bg: 0
+    fg: 7
