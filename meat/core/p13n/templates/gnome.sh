@@ -8,7 +8,7 @@ dconf write "/org/gnome/terminal/legacy/profiles:/:$profile/palette" "[
   '{{ colors.yellow.normal | to_gnome_color }}',
   '{{ colors.blue.normal | to_gnome_color }}',
   '{{ colors.violet.normal | to_gnome_color }}',
-  '{{ colors.orange.normal | to_gnome_color }}',
+  '{{ colors.cyan.normal | to_gnome_color }}',
   '{{ colors.white.normal | to_gnome_color }}',
   '{{ colors.black.bold | to_gnome_color }}',
   '{{ colors.red.bold | to_gnome_color }}',
@@ -16,7 +16,7 @@ dconf write "/org/gnome/terminal/legacy/profiles:/:$profile/palette" "[
   '{{ colors.yellow.bold | to_gnome_color }}',
   '{{ colors.blue.bold | to_gnome_color }}',
   '{{ colors.violet.bold | to_gnome_color }}',
-  '{{ colors.orange.bold | to_gnome_color }}',
+  '{{ colors.cyan.bold | to_gnome_color }}',
   '{{ colors.white.bold | to_gnome_color }}'
 ]"
 dconf write "/org/gnome/terminal/legacy/profiles:/:$profile/background-color" "'{{ colors.bg.normal | to_gnome_color }}'"
@@ -31,3 +31,4 @@ export __blue="$(tput setaf {{ colors.codes.blue }})"
 export __magenta="$(tput setaf {{ colors.codes.magenta }})"
 export __orange="$(tput setaf {{ colors.codes.orange }})"
 export __gray="$(tput setaf {{ colors.codes.gray }})"
+export __cyan="$(tput setaf {{ colors.codes.cyan }})"

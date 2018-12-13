@@ -138,9 +138,10 @@ Plug 'vim-airline/vim-airline' " {{{
   " filetype
   let g:airline_section_x = '%{&ft}'
   " c.<colnum>
-  let g:airline_section_y = 'c.%-3.c'
+  " let g:airline_section_y = 'c.%-3.c'
+  let g:airline_section_y = ''
   " <linenum> of <numlines>
-  let g:airline_section_z = '%4.l of %-4.L'
+  let g:airline_section_z = '%4.l:%-3.c %-4.L'
   " <linenum/numlines>% of <numlines>
   " let g:airline_section_y = '%P of %-4.L'
   " <linenum>:<colnum>
@@ -155,8 +156,8 @@ Plug 'vim-airline/vim-airline' " {{{
 " }}}
 
 Plug 'vim-airline/vim-airline-themes' " {{{
-  let g:default_airline_theme = 'quantum'
-  let g:alt_airline_theme = 'raven'
+  let g:default_airline_theme = 'lucius'
+  let g:alt_airline_theme = 'angr'
   function! ToggleAirlineTheme() " {{{
     if g:airline_theme == g:alt_airline_theme
       exec 'AirlineTheme '.g:default_airline_theme
@@ -220,6 +221,10 @@ Plug 'koirand/tokyo-metro.vim' " {{{
 Plug 'tjammer/blayu.vim' " {{{
 " }}}
 
+Plug 'jeffkreeftmeijer/vim-dim' " {{{
+" }}}
+
+
 " }}}
 
 call plug#end()
@@ -280,7 +285,7 @@ set t_Co=256
 set t_ut=
 
 " Set the color scheme
-colors neodark
+colors dim
 set bg=dark
 
 " colorcolumn
@@ -288,6 +293,9 @@ silent! set colorcolumn=80
 
 " set the search highlight colors: orange on dark gray background
 hi Search ctermbg=237 ctermfg=166
+
+" set the cursorline colors
+hi CursorLine cterm=NONE
 
 " }}}
 

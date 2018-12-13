@@ -8,9 +8,9 @@ colors:
   green:
     normal: "#81C149"
     bold: "#519445"
-  orange:
-    normal: "#F05E25"
-    bold: "#C04729"
+  cyan:
+    normal: "#25B9F0"
+    bold: "#2553F0"
   red:
     normal: "#E31E26"
     bold: "#A21D21"
@@ -19,22 +19,23 @@ colors:
     bold: "#BB2644"
   yellow:
     normal: "#FCB133"
-    bold: "#D28317"
+    bold: "#F05E25"
   white:
     normal: "#FFFFFF"
-    bold: "#8C99A1"
+    bold: "#AFBEC7"
   bg:
     normal: "#1A252C"
     bold: "#3A434A"
   fg:
-    normal: "#FFFFFF"
+    normal: "#AFBEC7"
   codes:
     red: 1
     green: 2
     yellow: 3
     blue: 4
     magenta: 5
-    orange: 6
+    orange: 11
     gray: 8
+    cyan: 6
     bg: 0
-    fg: 7
+    fg: 15

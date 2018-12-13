@@ -14,9 +14,9 @@ Windows Registry Editor Version 5.00
 ; green
 "ColorTable02"=dword:{{ colors.green.normal | to_win_color }}
 "ColorTable10"=dword:{{ colors.green.bold | to_win_color }}
-; orange
-"ColorTable03"=dword:{{ colors.orange.normal | to_win_color }}
-"ColorTable11"=dword:{{ colors.orange.bold | to_win_color }}
+; cyan
+"ColorTable03"=dword:{{ colors.cyan.normal | to_win_color }}
+"ColorTable11"=dword:{{ colors.cyan.bold | to_win_color }}
 ; red
 "ColorTable04"=dword:{{ colors.red.normal | to_win_color }}
 "ColorTable12"=dword:{{ colors.red.bold | to_win_color }}

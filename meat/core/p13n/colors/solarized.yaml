@@ -8,7 +8,7 @@ colors:
   green:
     normal: "#859900"
     bold: "#586E75"
-  orange:
+  cyan:
     normal: "#2AA198"
     bold: "#93A1A1"
   red:
@@ -36,5 +36,6 @@ colors:
     magenta: 5
     orange: 9
     gray: 10
+    cyan: 6
     bg: 0
     fg: 7
