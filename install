@@ -31,7 +31,7 @@ case "$(uname)" in
 
   if ! which brew &> /dev/null; then
     trace_exec "Installing homebrew..." \
-      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/installi)"
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 ;;
 
