@@ -143,4 +143,5 @@ scheme () {
   else
     . "$HOME/.files/meat/core/p13n/bin/gnome.sh"
   fi
+  . "$HOME/.files/meat/core/p13n/bin/colors.sh"
 }
