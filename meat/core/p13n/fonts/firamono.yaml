@@ -1,0 +1,7 @@
+font:
+  win:
+    name: "Fira Mono Medium"
+    size: 20
+  linux:
+    name: "Fira Mono Medium"
+    size: 11

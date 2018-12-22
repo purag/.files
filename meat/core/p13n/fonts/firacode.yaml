@@ -1,0 +1,7 @@
+font:
+  win:
+    name: "Fira Code Retina"
+    size: 20
+  linux:
+    name: "Fira Code Retina"
+    size: 11
