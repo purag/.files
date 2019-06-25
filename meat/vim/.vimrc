@@ -68,6 +68,7 @@ Plug 'haya14busa/incsearch.vim' " {{{
 " }}}
 
 Plug 'osyo-manga/vim-over' " {{{
+  let g:over#command_line#enable_import_commandline_map = 0
   nnoremap <leader>s <esc>:OverCommandLine<cr>%s/
   vnoremap <leader>s <esc>gv:OverCommandLine<cr>s/
 " }}}
