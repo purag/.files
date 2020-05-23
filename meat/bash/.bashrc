@@ -54,8 +54,16 @@ show_remote_host () {
 }
 
 my_prompt () {
+  # save and reload history after each command finishes
+  history -a; history -c; history -r;
   PS1="\[$__gray\]\t $(show_remote_host)\[${__cyan}\]in \w $(git_prompt)\n\[$__orange\]\u\[$__reset\] › "
 }
+
+# preserve history across all shells
+HISTCONTROL=ignoredups:erasedups
+HISTSIZE=999999
+HISTFILESIZE=999999
+shopt -s histappend
 
 PROMPT_COMMAND=my_prompt
 
@@ -67,10 +75,17 @@ source ~/.files/meat/bash/functions
 
 # set terminal color scheme
 __reset="$(tput sgr 0)"
-scheme pur inputmono &> /dev/null
+scheme pur firamono &> /dev/null
 
 # source any local configs
 [ -f ~/.bash_local ] && source ~/.bash_local
 
 # link this file in ~
 # purag/.files!link
+
+# Set the Hi status to be displayed as part of the prompt. #!>>HI<<!#
+# PS1="\[\${__hi_prompt_color}\]\${__hi_prompt_text}\[${__hi_NOCOLOR}\]${PS1}" #!>>HI<<!#
+# Set the default values for the text of the hi prompt. Change these if you like. #!>>HI<<!#
+# __hi_on_prompt="[hi on] " #!>>HI<<!#
+# __hi_off_prompt="[hi off] " #!>>HI<<!#
+
