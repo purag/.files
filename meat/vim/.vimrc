@@ -44,7 +44,7 @@ Plug 'mbbill/undotree' " {{{
 " File Management {{{
 
 Plug 'junegunn/fzf', " {{{
-  \ { 'do': './install --bin' }
+  \ { 'do': { -> fzf#install() } }
 " }}}
 
 Plug 'junegunn/fzf.vim' " {{{
@@ -52,6 +52,7 @@ Plug 'junegunn/fzf.vim' " {{{
   nnoremap <leader>zh <esc>:History<cr>
   nnoremap <leader>zg <esc>:GFiles<cr>
   nnoremap <leader>z  <esc>:BLines<cr>
+  set rtp+=/usr/local/opt/fzf
 " }}}
 
 " }}}
