@@ -1,41 +1,69 @@
+name: "pur"
 colors:
   black:
-    normal: "#1A252C"
-    bold: "#3A434A"
-  blue:
-    normal: "#4F8DCA"
-    bold: "#1267AD"
-  green:
-    normal: "#81C149"
-    bold: "#519445"
-  cyan:
-    normal: "#25B9F0"
-    bold: "#2553F0"
+    normal:
+      hex: "#22313A"
+      code: 0
+    bright:
+      hex: "#4A545C"
+      code: 8
   red:
-    normal: "#E31E26"
-    bold: "#A21D21"
-  violet:
-    normal: "#EF3B5F"
-    bold: "#BB2644"
+    normal:
+      hex: "#EB3631"
+      code: 1
+    bright:
+      hex: "#B32E2b"
+      code: 9
+  green:
+    normal:
+      hex: "#91C85A"
+      code: 2
+    bright:
+      hex: "#61A256"
+      code: 10
   yellow:
-    normal: "#FCB133"
-    bold: "#F05E25"
+    normal:
+      hex: "#FDBD41"
+      code: 3
+    bright:
+      hex: "#F5742F"
+      code: 11
+  blue:
+    normal:
+      hex: "#5F9FD4"
+      code: 4
+    bright:
+      hex: "#0D7CBB"
+      code: 12
+  violet:
+    normal:
+      hex: "#F45471"
+      code: 5
+    bright:
+      hex: "#C93B55"
+      code: 13
+  cyan:
+    normal:
+      hex: "#24C5F3"
+      code: 6
+    bright:
+      hex: "#2F6DF3"
+      code: 14
   white:
-    normal: "#FFFFFF"
-    bold: "#AFBEC7"
+    normal:
+      hex: "#FEFFFF"
+      code: 7
+    bright:
+      hex: "#BCC9D1"
+      code: 15
   bg:
-    normal: "#1A252C"
-    bold: "#3A434A"
+    normal:
+      hex: "#22313A"
+      code: 0
+    bright:
+      hex: "#4A545C"
+      code: 8
   fg:
-    normal: "#AFBEC7"
-  codes:
-    red: 1
-    green: 2
-    yellow: 3
-    blue: 4
-    magenta: 5
-    orange: 11
-    gray: 8
-    cyan: 6
-    bg: 0
-    fg: 15
+    normal:
+      hex: "#BCC9D1"
+      code: 15

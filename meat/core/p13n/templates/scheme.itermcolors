@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Ansi 0 Color</key>
+  {{ colors.black.normal.hex | to_iterm_dict }}
+  <key>Ansi 1 Color</key>
+  {{ colors.red.normal.hex | to_iterm_dict }}
+  <key>Ansi 2 Color</key>
+  {{ colors.green.normal.hex | to_iterm_dict }}
+  <key>Ansi 3 Color</key>
+  {{ colors.yellow.normal.hex | to_iterm_dict }}
+  <key>Ansi 4 Color</key>
+  {{ colors.blue.normal.hex | to_iterm_dict }}
+  <key>Ansi 5 Color</key>
+  {{ colors.violet.normal.hex | to_iterm_dict }}
+  <key>Ansi 6 Color</key>
+  {{ colors.cyan.normal.hex | to_iterm_dict }}
+  <key>Ansi 7 Color</key>
+  {{ colors.white.normal.hex | to_iterm_dict }}
+  <key>Ansi 8 Color</key>
+  {{ colors.black.bright.hex | to_iterm_dict }}
+  <key>Ansi 9 Color</key>
+  {{ colors.red.bright.hex | to_iterm_dict }}
+  <key>Ansi 10 Color</key>
+  {{ colors.green.bright.hex | to_iterm_dict }}
+  <key>Ansi 11 Color</key>
+  {{ colors.yellow.bright.hex | to_iterm_dict }}
+  <key>Ansi 12 Color</key>
+  {{ colors.blue.bright.hex | to_iterm_dict }}
+  <key>Ansi 13 Color</key>
+  {{ colors.violet.bright.hex | to_iterm_dict }}
+  <key>Ansi 14 Color</key>
+  {{ colors.cyan.bright.hex | to_iterm_dict }}
+  <key>Ansi 15 Color</key>
+  {{ colors.white.bright.hex | to_iterm_dict }}
+  <key>Background Color</key>
+  {{ colors.bg.normal.hex | to_iterm_dict }}
+  <!-- <key>Bold Color</key> -->
+  <!-- <key>Cursor Color</key> -->
+  <!-- <key>Cursor Text Color</key> -->
+  <key>Foreground Color</key>
+  {{ colors.fg.normal.hex | to_iterm_dict }}
+  <key>Selected Text Color</key>
+  {{ colors.fg.normal.hex | to_iterm_dict }}
+  <key>Selection Color</key>
+  {{ colors.bg.bright.hex | to_iterm_dict }}
+</dict>
+</plist>

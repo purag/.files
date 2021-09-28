@@ -6,28 +6,28 @@ Windows Registry Editor Version 5.00
 "FontSize"=dword:{{ font.win.size | to_hex }}0000
 ; COLORS =======================================================================
 ; black
-"ColorTable00"=dword:{{ colors.black.normal | to_win_color }}
-"ColorTable08"=dword:{{ colors.black.bold | to_win_color }}
+"ColorTable00"=dword:{{ colors.black.normal.hex | to_win_color }}
+"ColorTable08"=dword:{{ colors.black.bright.hex | to_win_color }}
 ; blue
-"ColorTable01"=dword:{{ colors.blue.normal | to_win_color }}
-"ColorTable09"=dword:{{ colors.blue.bold | to_win_color }}
+"ColorTable01"=dword:{{ colors.blue.normal.hex | to_win_color }}
+"ColorTable09"=dword:{{ colors.blue.bright.hex | to_win_color }}
 ; green
-"ColorTable02"=dword:{{ colors.green.normal | to_win_color }}
-"ColorTable10"=dword:{{ colors.green.bold | to_win_color }}
+"ColorTable02"=dword:{{ colors.green.normal.hex | to_win_color }}
+"ColorTable10"=dword:{{ colors.green.bright.hex | to_win_color }}
 ; cyan
-"ColorTable03"=dword:{{ colors.cyan.normal | to_win_color }}
-"ColorTable11"=dword:{{ colors.cyan.bold | to_win_color }}
+"ColorTable03"=dword:{{ colors.cyan.normal.hex | to_win_color }}
+"ColorTable11"=dword:{{ colors.cyan.bright.hex | to_win_color }}
 ; red
-"ColorTable04"=dword:{{ colors.red.normal | to_win_color }}
-"ColorTable12"=dword:{{ colors.red.bold | to_win_color }}
+"ColorTable04"=dword:{{ colors.red.normal.hex | to_win_color }}
+"ColorTable12"=dword:{{ colors.red.bright.hex | to_win_color }}
 ; violet
-"ColorTable05"=dword:{{ colors.violet.normal | to_win_color }}
-"ColorTable13"=dword:{{ colors.violet.bold | to_win_color }}
+"ColorTable05"=dword:{{ colors.violet.normal.hex | to_win_color }}
+"ColorTable13"=dword:{{ colors.violet.bright.hex | to_win_color }}
 ; yellow
-"ColorTable06"=dword:{{ colors.yellow.normal | to_win_color }}
-"ColorTable14"=dword:{{ colors.yellow.bold | to_win_color }}
+"ColorTable06"=dword:{{ colors.yellow.normal.hex | to_win_color }}
+"ColorTable14"=dword:{{ colors.yellow.bright.hex | to_win_color }}
 ; white
-"ColorTable07"=dword:{{ colors.white.normal | to_win_color }}
-"ColorTable15"=dword:{{ colors.white.bold | to_win_color }}
+"ColorTable07"=dword:{{ colors.white.normal.hex | to_win_color }}
+"ColorTable15"=dword:{{ colors.white.bright.hex | to_win_color }}
 ; bg + fg
-"ScreenColors"=dword:000000{{ colors.codes.bg }}{{ colors.codes.fg }}
+"ScreenColors"=dword:000000{{ colors.bg.normal.code }}{{ colors.fg.normal.code }}

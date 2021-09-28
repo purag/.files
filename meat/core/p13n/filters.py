@@ -1,3 +1,6 @@
+import struct
+import codecs
+
 def nohash (hex):
   return hex.lstrip('#')
 
@@ -11,3 +14,21 @@ def to_win_color (hex):
 def to_gnome_color (hex):
   hex = nohash(hex)
   return '#' + hex[0:2]*2 + hex[2:4]*2 + hex[4:6]*2
+
+def to_rgb (hex):
+  return struct.unpack('BBB', codecs.decode(nohash(hex), 'hex'))
+
+# <dict> ... </dict>
+def to_iterm_dict (hex):
+  return """<dict>
+    <key>Alpha Component</key>
+    <real>1</real>
+    <key>Color Space</key>
+    <string>sRGB</string>
+    <key>Red Component</key>
+    <real>{}</real>
+    <key>Green Component</key>
+    <real>{}</real>
+    <key>Blue Component</key>
+    <real>{}</real>
+  </dict>""".format(*(x / 255.0 for x in to_rgb(hex)))
