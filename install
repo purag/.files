@@ -31,7 +31,7 @@ case "$(uname)" in
 
   if ! which brew &> /dev/null; then
     trace_exec "Installing homebrew..." \
-      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      bash -c 'curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash'
   fi
 ;;
 
@@ -65,11 +65,11 @@ case "$(uname)" in
 esac
 
 trace_exec "Linking dotfiles to home directory..." \
-  bash -c 'grep -rl "purag/.files\!link" | xargs -I {} ln -s .files/{} ~'
+  bash -c 'grep -rl "purag/.files\!link" ~/.files | xargs -I {} ln -s ~/.files/{} ~'
 
 if [ "$(uname)" = "Darwin" ]; then
   trace_exec "Linking MacOS dotfiles to home directory..." \
-    bash -c 'grep -rl "purag/.files\!darwin-link" | xargs -I {} ln -s .files/{} ~'
+    bash -c 'grep -rl "purag/.files\!darwin-link" ~/.files | xargs -I {} ln -s ~/.files/{} ~'
 fi
 
 trace_exec "Cloning purag/scripts to ~/scripts..." \
