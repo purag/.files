@@ -56,7 +56,7 @@ show_remote_host () {
 my_prompt () {
   # save and reload history after each command finishes
   history -a; history -c; history -r;
-  PS1="\[$__gray\]\t $(show_remote_host)\[${__cyan}\]in \w $(git_prompt)\n\[$__orange\]\u\[$__reset\] › "
+  PS1="\[$__dark_gray\]\t $(show_remote_host)\[${__cyan}\]in \w $(git_prompt)\n\[$__orange\]\u\[$__reset\] › "
 }
 
 # preserve history across all shells
