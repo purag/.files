@@ -1,5 +1,6 @@
 # better colors
-eval `dircolors ~/.files/meat/bash/dircolors/solarized-dark`
+# previously `solarized-dark`
+eval `dircolors ~/.files/meat/bash/dircolors/monokai`
 
 # smarter ls & grep
 alias ls='ls -GF --color=auto'
