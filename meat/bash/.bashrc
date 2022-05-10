@@ -80,6 +80,8 @@ scheme pur firamono &> /dev/null
 # source any local configs
 [ -f ~/.bash_local ] && source ~/.bash_local
 
+export GPG_TTY=$(tty)
+
 # link this file in ~
 # purag/.files!link
 
