@@ -1,0 +1,33 @@
+Windows Registry Editor Version 5.00
+[HKEY_CURRENT_USER\Console]
+; FONTS ========================================================================
+; font face
+"FaceName"="Fira Mono Medium"
+"FontSize"=dword:000F0000
+; COLORS =======================================================================
+; black
+"ColorTable00"=dword:002C251A
+"ColorTable08"=dword:004A433A
+; blue
+"ColorTable01"=dword:00CA8D4F
+"ColorTable09"=dword:00AD6712
+; green
+"ColorTable02"=dword:0049C181
+"ColorTable10"=dword:00459451
+; cyan
+"ColorTable03"=dword:00F0B925
+"ColorTable11"=dword:00F05325
+; red
+"ColorTable04"=dword:00261EE3
+"ColorTable12"=dword:00211DA2
+; violet
+"ColorTable05"=dword:005F3BEF
+"ColorTable13"=dword:004426BB
+; yellow
+"ColorTable06"=dword:0033B1FC
+"ColorTable14"=dword:00255EF0
+; white
+"ColorTable07"=dword:00FFFFFF
+"ColorTable15"=dword:00C7BEAF
+; bg + fg
+"ScreenColors"=dword:000000015

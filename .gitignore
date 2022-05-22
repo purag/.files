@@ -1,4 +1,3 @@
 log/install
 *.pyc
-meat/core/p13n/bin
 .DS_STORE
