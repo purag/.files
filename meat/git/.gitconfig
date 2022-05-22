@@ -37,5 +37,8 @@
   # catchup
   cu = !git checkout gh-pages && git rebase master && git push  && git checkout master
 
+[include]
+  path = ~/.gitconfig_local
+
 # link this file in ~
 # purag/.files!link
