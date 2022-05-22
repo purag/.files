@@ -3,7 +3,7 @@
 eval `dircolors ~/.files/meat/bash/dircolors/monokai`
 
 # smarter ls & grep
-alias ls='ls -GF --color=auto'
+alias ls='ls -GF'
 alias ll='ls -la'
 alias grep='grep --color=auto'
 # make tmux great again
@@ -50,7 +50,7 @@ git_prompt () {
 
 show_remote_host () {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "${__magenta}on $(hostname) "
+    echo "${__violet}on $(hostname) "
   fi
 }
 
