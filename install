@@ -26,24 +26,7 @@ function trace_exec () {
 mkdir -p log
 
 case "$(uname)" in
-"Darwin")
-  echo -e "${__blue}Installing OSX config...$__reset"
-
-  if ! which brew &> /dev/null; then
-    trace_exec "Installing homebrew..." \
-      bash -c 'curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash'
-  fi
-;;
-
-"Linux")
-    trace_exec "Cloning linuxbrew/brew..." \
-      git clone https://github.com/linuxbrew/brew.git ~/.linuxbrew
-
-    if [ ! -f ~/.bash_local ] || ! grep -q "linuxbrew" ~/.bash_local; then
-      trace_exec "Setting up linuxbrew..." \
-        bash -c "echo 'source ~/.files/meat/bash/linuxbrew' >> ~/.bash_local"
-    fi
-
+Linux)
     # https://github.com/dylanaraps/neofetch/blob/master/neofetch
     distro="$(awk -F 'NAME=' '/^NAME=/ {printf $2}' /etc/*ease)"
     distro="${distro//\"}"
@@ -51,10 +34,24 @@ case "$(uname)" in
     echo -e "${__blue}Installing $distro config...$__reset"
 
     case "$distro" in
-    "Ubuntu")
+    Ubuntu)
       if ! which ctags &> /dev/null; then
         trace_exec "Installing ctags..." \
           sudo apt-get install exuberant-ctags
+      fi
+    ;;& # fall-through to Debian case
+    *Debian*)
+      maybe_curl=""
+      maybe_git=""
+      maybe_procps=""
+      maybe_buildessential=""
+      ! which curl &> /dev/null && maybe_curl="curl"
+      ! which git &> /dev/null && maybe_git="git"
+      ! which ps &> /dev/null && maybe_procps="procps"
+      ! which gcc &> /dev/null && ! which make && maybe_buildessential="build-essential"
+      if [[ ! -z "$maybe_curl$maybe_git$maybe_procps$maybe_buildessential" ]]; then
+        trace_exec "Installing brew deps for Ubuntu/Debian..." \
+          sudo apt-get install "$maybe_curl $maybe_git $maybe_procps $maybe_buildessential"
       fi
     ;;
 
@@ -62,10 +59,33 @@ case "$(uname)" in
       echo -e "${__red}No config installation provided for [$distro].$__reset"
       #exit 1
     esac
+
+    echo -e "${__blue}Done.$__reset"
 esac
 
-trace_exec "Linking dotfiles to home directory..." \
-  bash -c 'grep -rl "purag/.files\!link" ~/.files | xargs -I {} ln -s ~/.files/{} ~'
+if ! which brew &> /dev/null; then
+  echo -e "  ${__green}Installing homebrew...$__reset"
+  echo -e "    $__gray"'bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"'"$__reset"
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+echo -e "${__blue}Setting up brew shellenv/paths...$__reset"
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+test -r ~/.bash_profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bash_profile
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
+echo
+
+trace_exec "Saving old dotfiles in *_old..." \
+  bash -c 'basename -a $(grep -rl "purag/.files\!link" ~/.files) | xargs -I {} mv ~/{} ~/{}_old'
+
+if [[ $(grep -rl "purag/.files\!link" ~/.files) = *.files* ]]; then
+  trace_exec "Linking dotfiles to home directory..." \
+    bash -c 'grep -rl "purag/.files\!link" ~/.files | xargs -I {} ln -s {} ~'
+else
+  trace_exec "Linking dotfiles to home directory..." \
+    bash -c 'grep -rl "purag/.files\!link" ~/.files | xargs -I {} ln -s ~/.files/{} ~'
+fi
 
 if [ "$(uname)" = "Darwin" ]; then
   trace_exec "Linking MacOS dotfiles to home directory..." \
