@@ -2,32 +2,32 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Console]
 ; FONTS ========================================================================
 ; font face
-"FaceName"="Fira Mono Medium"
-"FontSize"=dword:000F0000
+"FaceName"="Fira Code Retina"
+"FontSize"=dword:00140000
 ; COLORS =======================================================================
 ; black
-"ColorTable00"=dword:002C251A
-"ColorTable08"=dword:004A433A
+"ColorTable00"=dword:003A3122
+"ColorTable08"=dword:005C544A
 ; blue
-"ColorTable01"=dword:00CA8D4F
-"ColorTable09"=dword:00AD6712
+"ColorTable01"=dword:00D49F5F
+"ColorTable09"=dword:00BB7C0D
 ; green
-"ColorTable02"=dword:0049C181
-"ColorTable10"=dword:00459451
+"ColorTable02"=dword:005AC891
+"ColorTable10"=dword:0056A261
 ; cyan
-"ColorTable03"=dword:00F0B925
-"ColorTable11"=dword:00F05325
+"ColorTable03"=dword:00F3C524
+"ColorTable11"=dword:00F36D2F
 ; red
-"ColorTable04"=dword:00261EE3
-"ColorTable12"=dword:00211DA2
+"ColorTable04"=dword:003136EB
+"ColorTable12"=dword:002b2EB3
 ; violet
-"ColorTable05"=dword:005F3BEF
-"ColorTable13"=dword:004426BB
+"ColorTable05"=dword:007154F4
+"ColorTable13"=dword:00553BC9
 ; yellow
-"ColorTable06"=dword:0033B1FC
-"ColorTable14"=dword:00255EF0
+"ColorTable06"=dword:0041BDFD
+"ColorTable14"=dword:002F74F5
 ; white
-"ColorTable07"=dword:00FFFFFF
-"ColorTable15"=dword:00C7BEAF
+"ColorTable07"=dword:00FFFFFE
+"ColorTable15"=dword:00D1C9BC
 ; bg + fg
 "ScreenColors"=dword:000000015
