@@ -139,7 +139,12 @@ scheme () {
   if grep -q Microsoft /proc/version &> /dev/null; then
     regedit.exe "$HOME/.files/meat/core/p13n/bin/win.reg"
   elif [[ "$(uname)" == "Darwin" ]]; then
-    echo "${__red}Can't set colors on macOS yet! Exiting..."
+    # [ -f ~/Library/Preferences/com.googlecode.iterm2.plist ] \
+    #   && rm ~/Library/Preferences/com.googlecode.iterm2.plist
+    # cp "$HOME/.files/meat/core/p13n/bin/com.googlecode.iterm2.plist" ~/Library/Preferences
+    # # defaults import com.googlecode.iterm2 "$HOME/.files/meat/core/p13n/bin/mac.plist"
+    # defaults read -app iTerm
+    :
   else
     . "$HOME/.files/meat/core/p13n/bin/gnome.sh"
   fi
