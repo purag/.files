@@ -21,13 +21,21 @@ Plug 'tpope/vim-fugitive' " {{{
   nmap <leader>gp :Gpush<cr>
 " }}}
 
-Plug 'airblade/vim-gitgutter' " {{{
-  let g:gitgutter_map_keys = 0
-  nmap <leader>ga <Plug>GitGutterStageHunk
-  nmap <leader>gu <Plug>GitGutterUndoHunk
-  " nmap <leader>gp <Plug>GitGutterPreviewHunk
-  nmap <leader>g] <Plug>GitGutterNextHunk
-  nmap <leader>g[ <Plug>GitGutterPrevHunk
+" Plug 'airblade/vim-gitgutter' " {{{
+"   let g:gitgutter_map_keys = 0
+"   nmap <leader>ga <Plug>GitGutterStageHunk
+"   " nmap <leader>gu <Plug>GitGutterUndoHunk
+"   " nmap <leader>gp <Plug>GitGutterPreviewHunk
+"   " nmap <leader>g] <Plug>GitGutterNextHunk
+"   " nmap <leader>g[ <Plug>GitGutterPrevHunk
+" " }}}
+
+Plug 'mhinz/vim-signify' " {{{
+  let g:signify_vcs_list = ['git', 'hg']
+  nmap <leader>gu <plug>SignifyHunkUndo
+  nmap <leader>gp <plug>SignifyHunkDiff
+  nmap <leader>g] <plug>(signify-next-hunk)
+  nmap <leader>g[ <plug>(signify-prev-hunk)
 " }}}
 
 if (version >= 704)
@@ -111,8 +119,8 @@ Plug 'Yggdroot/indentline' " {{{
   let g:indentLine_char = '│'
 " }}}
 
-Plug 'alxyzc/lc.vim' " {{{
-" }}}
+" Plug 'alxyzc/lc.vim' " {{{
+" " }}}
 
 Plug 'rhysd/vim-wasm' " {{{
 " }}}
@@ -228,6 +236,10 @@ Plug 'jeffkreeftmeijer/vim-dim' " {{{
 
 
 " }}}
+
+Plug 'WeiChungWu/vim-SystemVerilog'
+let b:sv_indent_width = 8
+let b:sv_indent_modules = 1
 
 call plug#end()
 
@@ -390,6 +402,7 @@ nnoremap p ]p
 
 " efficiency ftw
 inoremap jj <esc>
+inoremap jk <esc>
 noremap ; :
 noremap : ;
 
