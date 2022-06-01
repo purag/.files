@@ -17,6 +17,10 @@ source ~/.vim/plugged/fzf/shell/completion.bash
 source ~/.vim/plugged/fzf/shell/key-bindings.bash
 
 git_prompt () {
+  if test -f "$PWD/.gitpromptignore"; then
+    return
+  fi
+
   if command git branch &> /dev/null; then
     if ! command git log &> /dev/null; then
       echo -ne "${__reset}with ${__green}a fresh new repo initialized"
